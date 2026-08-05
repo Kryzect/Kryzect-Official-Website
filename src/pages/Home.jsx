@@ -1,14 +1,10 @@
-import Logo from '../components/Logo.jsx'
-
+// Home page placeholder. Page content will be built in a later prompt.
 function Home() {
   return (
-    <main>
-      <section style={{ padding: '2rem' }}>
-        <div style={{ width: '8rem', height: '8rem' }}>
-          <Logo />
-        </div>
-      </section>
-    </main>
+    <section className="page-placeholder">
+      <h1>Kryzect</h1>
+      <p>Think First. Build Better.</p>
+    </section>
   )
 }
 
