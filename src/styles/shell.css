@@ -177,10 +177,11 @@
 
 /* Hamburger toggle (mobile) */
 .site-header__toggle {
+  position: relative;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
   width: 2.5rem;
   height: 2.5rem;
   padding: 8px;
@@ -188,19 +189,20 @@
   background: none;
   border: none;
   cursor: pointer;
+  z-index: 110;
 }
 
 .site-header__toggle-bar {
   display: block;
-  height: 2px;
   width: 100%;
+  height: 2px;
   border-radius: var(--radius-full);
   background: var(--color-text);
   transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out);
 }
 
 .site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 .site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(2) {
@@ -208,17 +210,21 @@
 }
 
 .site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ===== Mobile menu ===== */
 .site-mobile-menu {
   position: fixed;
-  inset: var(--header-height) 0 0 0;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
   z-index: 99;
-  background: var(--color-background);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-background);
+  border-bottom: 1px solid var(--color-surface);
   padding: var(--space-8) var(--space-6);
-  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
   display: none;
 }
 
@@ -234,7 +240,7 @@
 
 .site-mobile-menu__list .nav-link {
   display: block;
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   padding: var(--space-4) 0;
   border-bottom: 1px solid var(--color-surface);
 }
@@ -317,6 +323,7 @@
 
 .site-footer__bottom {
   border-top: 1px solid var(--color-surface);
+  background: var(--color-background);
 }
 
 .site-footer__legal {
@@ -433,6 +440,23 @@
 }
 
 /* ===== Responsive ===== */
+@media (max-width: 47.99rem) {
+  .site-footer__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-footer__brand {
+    grid-column: 1 / -1;
+    align-items: center;
+    text-align: center;
+  }
+
+  .site-footer__nav {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8) var(--space-6);
+  }
+}
+
 @media (min-width: 48rem) {
   .site-header__toggle {
     display: none;

@@ -94,10 +94,7 @@
 }
 
 .hero__visual {
-  width: min(20rem, 100%);
-  height: auto;
-  aspect-ratio: 1 / 1;
-  margin: 0 auto;
+  display: none;
 }
 
 /* ===== CLARITY BEFORE CODE ===== */
@@ -363,6 +360,14 @@
 @media (min-width: 48rem) {
   .hero {
     grid-template-columns: 1.2fr 0.8fr;
+  }
+
+  .hero__visual {
+    display: block;
+    width: min(20rem, 100%);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
   }
 
   .category-grid {
