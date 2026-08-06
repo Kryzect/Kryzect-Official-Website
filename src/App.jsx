@@ -8,6 +8,10 @@ import Team from './pages/Team.jsx'
 import Process from './pages/Process.jsx'
 import Services from './pages/Services.jsx'
 import ServicePage from './pages/ServicePage.jsx'
+import Products from './pages/Products.jsx'
+import ProductPage from './pages/ProductPage.jsx'
+import Work from './pages/Work.jsx'
+import CaseStudy from './pages/CaseStudy.jsx'
 import Placeholder from './pages/Placeholder.jsx'
 
 function App() {
@@ -21,11 +25,12 @@ function App() {
         <Route path="/process" element={<Process />} />
         <Route path="/services" element={<Services />} />
         <Route path="/services/:slug" element={<ServicePage />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/ai-postmortem" element={<ProductPage />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/work/:slug" element={<CaseStudy />} />
 
         {/* Core destinations — placeholders until each page is built */}
-        <Route path="/work" element={<Placeholder title="Work" />} />
-        <Route path="/products" element={<Placeholder title="Products" />} />
-        <Route path="/products/ai-postmortem" element={<Placeholder title="AI Postmortem" />} />
         <Route path="/blog" element={<Placeholder title="Blog" />} />
         <Route path="/contact" element={<Placeholder title="Contact" />} />
         <Route path="/book-a-call" element={<Placeholder title="Book a Call" />} />

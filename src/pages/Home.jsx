@@ -178,7 +178,7 @@ function Home() {
             <p className="product-card__desc">{product.description}</p>
             <div className="product-card__cta">
               <Button to="/products/ai-postmortem" variant="ghost">
-                Explore AI Postmortem →
+                Explore IncidentIQ →
               </Button>
             </div>
           </div>
