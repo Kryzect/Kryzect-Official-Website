@@ -28,6 +28,7 @@ function ServicePage() {
           title="Service not found"
           description="This service page could not be found. Explore all Kryzect services."
           path="/services"
+          noindex
         />
         <section className="page-hero">
           <div className="page-container">

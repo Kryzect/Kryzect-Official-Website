@@ -1,4 +1,5 @@
 import { PROCESS_STAGES, PROCESS_PRINCIPLE } from '../data/process.js'
+import Seo from '../components/Seo.jsx'
 
 import './company.css'
 
@@ -8,6 +9,11 @@ import './company.css'
 function Process() {
   return (
     <>
+      <Seo
+        title="How We Work"
+        description="How Kryzect works — an 8-stage process from discovery to improvement, starting before the code."
+        path="/process"
+      />
       {/* ============ HERO ============ */}
       <section className="page-hero">
         <div className="page-container">

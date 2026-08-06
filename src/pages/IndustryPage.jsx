@@ -24,6 +24,7 @@ function IndustryPage() {
           title="Industry not found"
           description="This industry page could not be found."
           path="/industries"
+          noindex
         />
         <section className="page-hero">
           <div className="page-container">

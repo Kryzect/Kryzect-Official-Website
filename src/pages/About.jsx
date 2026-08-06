@@ -1,5 +1,6 @@
 import Button from '../components/Button.jsx'
 import SocialLinks from '../components/SocialLinks.jsx'
+import Seo from '../components/Seo.jsx'
 import { BRAND_VALUES } from '../data/values.js'
 
 import './company.css'
@@ -35,6 +36,11 @@ function SectionHeading({ kicker, title }) {
 function About() {
   return (
     <>
+      <Seo
+        title="About Kryzect"
+        description="Who is Kryzect — a technology company focused on software engineering, AI, automation, and digital products."
+        path="/about"
+      />
       {/* ============ HERO ============ */}
       <section className="page-hero">
         <div className="page-container">

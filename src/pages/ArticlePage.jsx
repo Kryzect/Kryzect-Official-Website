@@ -6,6 +6,7 @@ import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import ArticleCard from '../components/ArticleCard.jsx'
 import { getArticle, getRelatedArticles } from '../data/articles.js'
+import { SITE_URL } from '../data/site.js'
 
 import './company.css'
 import './blog.css'
@@ -63,14 +64,12 @@ function ArticleSchema({ article }) {
       '@type': 'Article',
       headline: article.title,
       description: article.excerpt,
-      image: article.coverImage
-        ? `${window.location.origin}${article.coverImage.src}`
-        : undefined,
+      image: article.coverImage ? `${SITE_URL}${article.coverImage.src}` : undefined,
       datePublished: article.date,
       dateModified: article.date,
       author: { '@type': 'Person', name: article.author },
-      publisher: { '@type': 'Organization', name: 'Kryzect', url: window.location.origin },
-      mainEntityOfPage: `${window.location.origin}/blog/${article.slug}`,
+      publisher: { '@type': 'Organization', name: 'Kryzect', url: SITE_URL },
+      mainEntityOfPage: `${SITE_URL}/blog/${article.slug}`,
       wordCount,
       articleSection: article.category,
     })
@@ -99,6 +98,7 @@ function ArticlePage() {
           title="Article not found"
           description="This article could not be found. Explore more Kryzect articles."
           path="/blog"
+          noindex
         />
         <section className="page-hero">
           <div className="page-container">

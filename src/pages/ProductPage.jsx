@@ -1,12 +1,55 @@
+import { useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Button from '../components/Button.jsx'
 import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import { getProduct } from '../data/products.js'
+import { SITE_URL } from '../data/site.js'
 
 import './company.css'
 import './products.css'
+
+// JSON-LD SoftwareApplication structured data, injected per product render.
+// Only real, known fields are emitted — no fabricated offers, ratings, or
+// release state. Status is declared honestly (e.g. "In Development").
+function ProductSchema({ product }) {
+  const scriptRef = useRef(null)
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (!scriptRef.current) {
+      scriptRef.current = document.createElement('script')
+      scriptRef.current.type = 'application/ld+json'
+      document.head.appendChild(scriptRef.current)
+    }
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: product.name,
+      description: product.description,
+      url: `${SITE_URL}/products/${product.slug}`,
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web',
+      author: { '@type': 'Organization', name: 'Kryzect', url: SITE_URL },
+    }
+    if (product.liveUrl) {
+      schema.url = product.liveUrl
+    }
+    scriptRef.current.textContent = JSON.stringify(schema)
+  }, [product])
+
+  useEffect(() => {
+    return () => {
+      if (scriptRef.current) {
+        scriptRef.current.remove()
+        scriptRef.current = null
+      }
+    }
+  }, [])
+
+  return null
+}
 
 function SectionHeading({ kicker, title }) {
   return (
@@ -28,6 +71,7 @@ function ProductPage() {
           title="Product not found"
           description="This product page could not be found. Explore all Kryzect products."
           path="/products"
+          noindex
         />
         <section className="page-hero">
           <div className="page-container">
@@ -48,6 +92,7 @@ function ProductPage() {
         description={product.description}
         path={`/products/${product.slug}`}
       />
+      <ProductSchema product={product} />
       <Breadcrumbs
         items={[
           { label: 'Home', to: '/' },

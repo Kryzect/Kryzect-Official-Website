@@ -1,4 +1,5 @@
 import { TEAM_INTRO, TEAM_MEMBERS } from '../data/team.js'
+import Seo from '../components/Seo.jsx'
 
 import './company.css'
 
@@ -29,6 +30,11 @@ const ICONS = {
 function Team() {
   return (
     <>
+      <Seo
+        title="The Team Behind Kryzect"
+        description="The people behind Kryzect — a founder-led technology company."
+        path="/team"
+      />
       {/* ============ HERO ============ */}
       <section className="page-hero">
         <div className="page-container">

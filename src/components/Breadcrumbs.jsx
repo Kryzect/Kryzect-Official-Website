@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
+import { SITE_URL } from '../data/site.js'
+
 // Breadcrumb nav with JSON-LD BreadcrumbList for SEO.
 // `items` = [{ label, to }] in order; the last item is current page (no link).
 
@@ -21,7 +23,7 @@ function Breadcrumbs({ items }) {
         '@type': 'ListItem',
         position: index + 1,
         name: item.label,
-        item: `${window.location.origin}${item.to}`,
+        item: `${SITE_URL}${item.to}`,
       })),
     })
   }, [items])

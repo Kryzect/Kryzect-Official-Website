@@ -28,6 +28,7 @@ function CaseStudy() {
           title="Case study not found"
           description="This case study could not be found. Explore all Kryzect work."
           path="/work"
+          noindex
         />
         <section className="page-hero">
           <div className="page-container">

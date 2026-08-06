@@ -1,3 +1,4 @@
+import Seo from '../components/Seo.jsx'
 import Logo from '../components/Logo.jsx'
 import Button from '../components/Button.jsx'
 import ArticleCard from '../components/ArticleCard.jsx'
@@ -67,6 +68,11 @@ function Home() {
 
   return (
     <>
+      <Seo
+        title="Think First. Build Better."
+        description="Kryzect — software engineering, AI, and automation built around what your business actually needs."
+        path="/"
+      />
       {/* ============ HERO ============ */}
       <section className="home-section home-section--hero">
         <div className="page-container">

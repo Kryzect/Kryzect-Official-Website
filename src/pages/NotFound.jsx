@@ -14,6 +14,7 @@ function NotFound() {
         title="Page not found"
         description="This page doesn't exist. It may have moved, or perhaps we haven't built it yet."
         path="/"
+        noindex
       />
       <section className="notfound">
         <div className="page-container">

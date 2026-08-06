@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Internal assets
+Disallow: /logo.png
+
+# Sitemap location
+Sitemap: https://kryzect.vercel.app/sitemap.xml

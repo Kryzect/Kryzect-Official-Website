@@ -24,6 +24,7 @@ function UtilityPage({ slug }) {
           title="Page not found"
           description="This page could not be found."
           path="/"
+          noindex
         />
         <section className="page-hero">
           <div className="page-container">

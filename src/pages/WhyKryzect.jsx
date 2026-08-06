@@ -1,4 +1,5 @@
 import Button from '../components/Button.jsx'
+import Seo from '../components/Seo.jsx'
 
 import './company.css'
 
@@ -122,6 +123,11 @@ function SectionHeading({ kicker, title }) {
 function WhyKryzect() {
   return (
     <>
+      <Seo
+        title="Why Kryzect"
+        description="Why Kryzect — building the right thing matters more than building something."
+        path="/why-kryzect"
+      />
       {/* ============ HERO ============ */}
       <section className="page-hero">
         <div className="page-container">
