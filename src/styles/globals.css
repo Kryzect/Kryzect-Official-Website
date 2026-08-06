@@ -18,6 +18,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -27,6 +28,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: 1.6;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -83,6 +85,30 @@ pre {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+/* ---- Route loading fallback (lazy chunks) ---- */
+.route-fallback {
+  display: grid;
+  place-items: center;
+  flex: 1;
+  min-height: 40vh;
+  padding: var(--space-16);
+}
+
+.route-fallback__spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--color-accent-muted);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: route-fallback-spin 0.8s linear infinite;
+}
+
+@keyframes route-fallback-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 img,
