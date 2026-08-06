@@ -18,6 +18,7 @@
   --color-accent: #8faeff; /* outer ring, highlights, interactive */
   --color-accent-hover: #7ea4ff; /* interactive hover (reserved) */
   --color-accent-active: #6c97f7; /* active / seated (center icon) */
+  --color-accent-muted: rgb(143 175 255 / 0.18); /* subtle accent tint/fill */
 
   /* ---- Typography families ---- */
   --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;

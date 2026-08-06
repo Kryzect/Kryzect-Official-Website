@@ -23,9 +23,13 @@ const ICONS = {
   ),
 }
 
-function SocialLinks({ className = '' }) {
+function SocialLinks({ className = '', row = false }) {
+  const classes = ['social-links']
+  if (row) classes.push('social-links--row')
+  if (className) classes.push(className)
+
   return (
-    <ul className={`social-links${className ? ` ${className}` : ''}`}>
+    <ul className={classes.join(' ')}>
       {SOCIAL_LINKS.map(({ label, href, icon }) => (
         <li key={label}>
           <a href={href} className="social-links__item" target="_blank" rel="noreferrer">
