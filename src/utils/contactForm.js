@@ -17,7 +17,7 @@
 // Web3Forms responds { success: boolean, message: string } — success key is
 // authoritative (a non-2xx may still be a structured "bot detected" reply).
 
-import { FORM_ENDPOINT, WEB3FORMS_ACCESS_KEY } from '../config.js'
+import { FORM_ENDPOINT, WEB3FORMS_ACCESS_KEY, CONTACT_EMAIL } from '../config.js'
 
 export async function submitContactForm(payload) {
   if (!FORM_ENDPOINT || !WEB3FORMS_ACCESS_KEY) {

@@ -463,7 +463,7 @@
 /* ===== Responsive ===== */
 @media (max-width: 47.99rem) {
   .site-footer__inner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .site-footer__brand {
@@ -473,7 +473,7 @@
   }
 
   .site-footer__nav {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--space-8) var(--space-6);
   }
 }
