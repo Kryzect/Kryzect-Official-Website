@@ -33,6 +33,7 @@ function ContactForm() {
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState(null) // idle | submitting | sent | error | config
   const [lastSubmission, setLastSubmission] = useState(null) // for mailto fallback
+  const [errorMessage, setErrorMessage] = useState(null) // provider error text (config form)
   const mailtoRef = useRef(null)
 
   const setField = (field) => (event) => {
@@ -85,6 +86,7 @@ function ContactForm() {
       setStatus('sent')
       setValues(buildInitial())
       setErrors({})
+      setErrorMessage(null)
       return
     }
 
@@ -92,11 +94,13 @@ function ContactForm() {
       setLastSubmission(data)
       setStatus('config')
       setErrors({})
+      setErrorMessage(null)
       return
     }
 
     setLastSubmission(data)
     setStatus('error')
+    setErrorMessage(result.error)
   }
 
   const fieldError = (field) => (errors[field] ? <span id={`${field}-error`} className="form-field__error" role="alert">{errors[field]}</span> : null)
@@ -116,7 +120,9 @@ function ContactForm() {
           </>
         )
       case 'error':
-        return 'Something went wrong sending your message. Please try again, or email us directly.'
+        return errorMessage
+          ? `Something went wrong: ${errorMessage}`
+          : 'Something went wrong sending your message. Please try again, or email us directly.'
       default:
         return null
     }

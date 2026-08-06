@@ -35,7 +35,9 @@ function BookACall() {
           </p>
           <div className="page-hero__actions">
             {BOOKING_URL ? (
-              <Button href={BOOKING_URL}>Book Your Call →</Button>
+              <Button href={BOOKING_URL} target="_blank" rel="noreferrer">
+                Book Your Call →
+              </Button>
             ) : (
               <Button href={`mailto:${CONTACT_EMAIL}`}>Email to Schedule →</Button>
             )}
@@ -99,7 +101,9 @@ function BookACall() {
             </p>
             {BOOKING_URL ? (
               <div className="booking-cta">
-                <Button href={BOOKING_URL}>Book Your Call →</Button>
+                <Button href={BOOKING_URL} target="_blank" rel="noreferrer">
+                  Book Your Call →
+                </Button>
               </div>
             ) : (
               <div className="booking-cta">
