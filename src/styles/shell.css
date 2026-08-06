@@ -52,7 +52,6 @@
   cursor: pointer;
   text-decoration: none;
   border: 1px solid transparent;
-  white-space: nowrap;
   transition:
     background-color var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out),
@@ -463,18 +462,14 @@
 /* ===== Responsive ===== */
 @media (max-width: 47.99rem) {
   .site-footer__inner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
   }
 
   .site-footer__brand {
-    grid-column: 1 / -1;
+    grid-column: auto;
     align-items: center;
     text-align: center;
-  }
-
-  .site-footer__nav {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--space-8) var(--space-6);
   }
 }
 

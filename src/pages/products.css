@@ -6,7 +6,7 @@
 /* ===== Overview: product grid ===== */
 .product-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
 }
 
@@ -92,7 +92,7 @@
 /* ===== Audience cards ===== */
 .audience-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   margin-top: var(--space-8);
 }
@@ -236,7 +236,7 @@
 /* ===== Screenshots ===== */
 .screenshot-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
   max-width: var(--container-max);
 }

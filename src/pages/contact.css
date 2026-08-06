@@ -6,7 +6,7 @@
 /* ===== Contact two-column layout ===== */
 .contact-layout {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-12);
 }
 
@@ -28,7 +28,7 @@
 
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
 }
 
@@ -128,7 +128,7 @@
 /* ===== Contact options ===== */
 .contact-options {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
 }
 
