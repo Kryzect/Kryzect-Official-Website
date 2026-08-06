@@ -5,22 +5,6 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://kryzect.vercel.app/about</loc>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://kryzect.vercel.app/why-kryzect</loc>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://kryzect.vercel.app/team</loc>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://kryzect.vercel.app/process</loc>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://kryzect.vercel.app/services</loc>
     <changefreq>monthly</changefreq>
   </url>
@@ -29,11 +13,19 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://kryzect.vercel.app/industries</loc>
+    <loc>https://kryzect.vercel.app/about</loc>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://kryzect.vercel.app/faq</loc>
+    <loc>https://kryzect.vercel.app/why-kryzect</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kryzect.vercel.app/process</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kryzect.vercel.app/team</loc>
     <changefreq>monthly</changefreq>
   </url>
   <url>
@@ -42,6 +34,14 @@
   </url>
   <url>
     <loc>https://kryzect.vercel.app/book-a-call</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kryzect.vercel.app/faq</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kryzect.vercel.app/industries</loc>
     <changefreq>monthly</changefreq>
   </url>
   <url>

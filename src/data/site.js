@@ -2,11 +2,14 @@
 // Blueprint V2 §68 (SEO/Discoverability) + §69 (AI Discoverability).
 // SITE_URL is the production domain; used for canonical URLs, Open Graph,
 // structured data, robots.txt and sitemap.xml. Deployed on Vercel.
-// Flip routes in NOINDEX_PATTERNS when real data ships (launch-hiding).
+// Indexability is driven by the central page registry in data/site-map.js —
+// flip the `indexable` flag there to gate launch-visibility without touching
+// components or this file.
 
 import { CONTACT_EMAIL } from '../config.js'
 import { SOCIAL_LINKS } from './navigation.js'
 import { TEAM_MEMBERS } from './team.js'
+import { isIndexable as isRegistryIndexable } from './site-map.js'
 
 export const SITE_NAME = 'Kryzect'
 export const SITE_URL = 'https://kryzect.vercel.app'
@@ -29,20 +32,7 @@ export const ENTITY = {
   sameAs: SOCIAL_LINKS.map((l) => l.href),
 }
 
-// Routes that exist in the codebase but must NOT be indexed until they hold
-// real data (launch-hiding principle). /work and /blog are intentionally empty
-// for now; /careers lists no open roles; industry detail pages are placeholders.
-// Remove a pattern here when real content ships so it becomes indexable again.
-const NOINDEX_PATTERNS = [
-  /^\/work(?:\/|$)/, // empty work gallery (PROJECTS = [])
-  /^\/blog(?:\/|$)/, // empty blog (ARTICLES = [])
-  /^\/careers(?:\/|$)/, // no open roles yet
-  /^\/industries\/[\w-]+$/i, // industry detail placeholders
-]
-
-// True when the given route should be indexable by search engines.
-// Dynamic pages can also force this with the Seo `noindex` prop (e.g. a
+// Indexability delegates to the central page registry (data/site-map.js).
+// Dynamic pages can also force noindex via the Seo `noindex` prop (e.g. a
 // "not found" branch of a valid-looking route).
-export function isIndexable(pathname) {
-  return !NOINDEX_PATTERNS.some((re) => re.test(pathname))
-}
+export const isIndexable = isRegistryIndexable

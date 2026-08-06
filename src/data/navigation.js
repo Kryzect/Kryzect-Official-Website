@@ -1,53 +1,20 @@
-// Kryzect — site data: navigation, footer structure, social links.
-// Centralized so the visible navigation can change at launch without
-// rewriting Header/Footer components (Blueprint V2: "header is for discovery,
-// footer is for completeness", final nav decided after all pages built).
+// Kryzect — site navigation: header, footer, social links.
+// This is a THIN derived layer. The single source of truth is
+// `data/site-map.js` (the page registry), which controls header visibility,
+// footer visibility, indexability, and future page visibility. Change a flag
+// in site-map.js and both Header and Footer update automatically — no
+// component code changes.
 
-// Primary header navigation (discovery).
-export const PRIMARY_NAV = [
-  { label: 'Services', to: '/services' },
-  { label: 'Work', to: '/work' },
-  { label: 'Products', to: '/products' },
-  { label: 'About', to: '/about' },
-  { label: 'Blog', to: '/blog' },
-  { label: 'Contact', to: '/contact' },
-]
+import { HEADER_NAV, FOOTER_COLUMNS } from './site-map.js'
+
+// Primary header navigation (discovery) — from the registry.
+export const PRIMARY_NAV = HEADER_NAV
 
 // Header primary CTA.
 export const HEADER_CTA = { label: 'Start a Project', to: '/contact' }
 
-// Footer column structure (completeness).
-export const FOOTER_NAV = [
-  {
-    heading: 'Explore',
-    links: [
-      { label: 'Services', to: '/services' },
-      { label: 'Work', to: '/work' },
-      { label: 'Products', to: '/products' },
-      { label: 'Blog', to: '/blog' },
-      { label: 'Contact', to: '/contact' },
-    ],
-  },
-  {
-    heading: 'Company',
-    links: [
-      { label: 'About', to: '/about' },
-      { label: 'Why Kryzect', to: '/why-kryzect' },
-      { label: 'Team', to: '/team' },
-      { label: 'Process', to: '/process' },
-    ],
-  },
-  {
-    heading: 'Legal',
-    links: [
-      { label: 'Privacy', to: '/privacy' },
-      { label: 'Terms', to: '/terms' },
-      { label: 'Cookies', to: '/cookies' },
-      { label: 'Security', to: '/security' },
-      { label: 'Accessibility', to: '/accessibility' },
-    ],
-  },
-]
+// Footer column structure (completeness) — from the registry.
+export const FOOTER_NAV = FOOTER_COLUMNS
 
 // Official Kryzect links (exact URLs from Blueprint V2 §14/§38).
 export const SOCIAL_LINKS = [
