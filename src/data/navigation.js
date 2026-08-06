@@ -42,6 +42,7 @@ export const FOOTER_NAV = [
     links: [
       { label: 'Privacy', to: '/privacy' },
       { label: 'Terms', to: '/terms' },
+      { label: 'Cookies', to: '/cookies' },
       { label: 'Security', to: '/security' },
       { label: 'Accessibility', to: '/accessibility' },
     ],

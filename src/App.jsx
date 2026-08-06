@@ -16,7 +16,12 @@ import Blog from './pages/Blog.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
 import Contact from './pages/Contact.jsx'
 import BookACall from './pages/BookACall.jsx'
-import Placeholder from './pages/Placeholder.jsx'
+import Faq from './pages/Faq.jsx'
+import Industries from './pages/Industries.jsx'
+import IndustryPage from './pages/IndustryPage.jsx'
+import Careers from './pages/Careers.jsx'
+import UtilityPage from './pages/UtilityPage.jsx'
+import NotFound from './pages/NotFound.jsx'
 
 function App() {
   return (
@@ -37,14 +42,19 @@ function App() {
         <Route path="/blog/:slug" element={<ArticlePage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/book-a-call" element={<BookACall />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/industries" element={<Industries />} />
+        <Route path="/industries/:slug" element={<IndustryPage />} />
+        <Route path="/careers" element={<Careers />} />
 
         {/* Legal / utility */}
-        <Route path="/privacy" element={<Placeholder title="Privacy" />} />
-        <Route path="/terms" element={<Placeholder title="Terms" />} />
-        <Route path="/security" element={<Placeholder title="Security" />} />
-        <Route path="/accessibility" element={<Placeholder title="Accessibility" />} />
+        <Route path="/privacy" element={<UtilityPage slug="privacy" />} />
+        <Route path="/terms" element={<UtilityPage slug="terms" />} />
+        <Route path="/cookies" element={<UtilityPage slug="cookies" />} />
+        <Route path="/security" element={<UtilityPage slug="security" />} />
+        <Route path="/accessibility" element={<UtilityPage slug="accessibility" />} />
 
-        <Route path="*" element={<Placeholder title="Page not found" />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )
