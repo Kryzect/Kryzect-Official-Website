@@ -201,6 +201,9 @@ function WhyKryzect() {
             </p>
           </div>
           <div className="section-cta">
+            <Button to="/process" variant="ghost">
+              See How We Work →
+            </Button>
             <Button to="/contact" variant="ghost">
               Talk to Kryzect →
             </Button>

@@ -302,6 +302,13 @@
   border-bottom: none;
 }
 
+.section-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-12);
+}
+
 /* ===== Responsive ===== */
 @media (min-width: 48rem) {
   .screenshot-grid {

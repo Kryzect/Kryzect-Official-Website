@@ -74,6 +74,9 @@ function ServicePage() {
                 {link.label}
               </Button>
             ))}
+            <Button to="/work" variant="ghost">
+              See Our Work →
+            </Button>
           </div>
         </div>
       </section>

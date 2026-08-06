@@ -254,6 +254,10 @@ function ProductPage() {
                 Visit Live Experiment →
               </Button>
             ) : null}
+            <Button to="/blog">Read Our AI Writing →</Button>
+            <Button to="/book-a-call" variant="ghost">
+              Book a Call →
+            </Button>
           </div>
         </div>
       </section>
