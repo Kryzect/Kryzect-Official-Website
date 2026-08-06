@@ -14,7 +14,7 @@ import './blog.css'
 const STEPS = [
   {
     number: '01',
-    title: 'Discover',
+    title: 'Understand',
     points: ['objectives', 'users', 'workflows', 'current systems', 'constraints', 'pain points'],
   },
   {
@@ -29,7 +29,7 @@ const STEPS = [
   },
   {
     number: '04',
-    title: 'Develop',
+    title: 'Engineer',
     points: ['quality', 'maintainability', 'performance', 'security'],
   },
   {
@@ -46,10 +46,10 @@ const STEPS = [
 
 function SectionHeading({ kicker, title }) {
   return (
-    <p className="section-heading">
+    <h2 className="section-heading">
       <span className="section-heading__kicker">{kicker}</span>
       <span className="section-heading__title">{title}</span>
-    </p>
+    </h2>
   )
 }
 

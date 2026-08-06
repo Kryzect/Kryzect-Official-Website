@@ -9,6 +9,7 @@ import { PRIMARY_NAV, HEADER_CTA } from '../data/navigation.js'
 function Header() {
   const [open, setOpen] = useState(false)
   const toggleRef = useRef(null)
+  const menuRef = useRef(null)
   const location = useLocation()
 
   // Close the mobile menu on navigation.
@@ -16,14 +17,33 @@ function Header() {
     setOpen(false)
   }, [location])
 
-  // Close the mobile menu with Escape.
+  // Close the mobile menu with Escape; trap Tab inside it while open.
   useEffect(() => {
     if (!open) return undefined
+
+    const firstFocus = () => {
+      menuRef.current?.querySelector('a, button')?.focus()
+    }
+    firstFocus()
 
     const onKey = (e) => {
       if (e.key === 'Escape') {
         setOpen(false)
         toggleRef.current?.focus()
+        return
+      }
+      if (e.key === 'Tab') {
+        const nodes = menuRef.current?.querySelectorAll('a, button, [tabindex]')
+        if (!nodes || nodes.length === 0) return
+        const first = nodes[0]
+        const last = nodes[nodes.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
       }
     }
     window.addEventListener('keydown', onKey)
@@ -78,6 +98,7 @@ function Header() {
       {createPortal(
         <div
           id="site-mobile-menu"
+          ref={menuRef}
           className={`site-mobile-menu${open ? ' is-open' : ''}`}
           hidden={!open}
         >
