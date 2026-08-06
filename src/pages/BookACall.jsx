@@ -55,12 +55,12 @@ function BookACall() {
               What the call is for.
             </h2>
           </div>
-          <ul className="dot-list">
-            <li className="dot">understanding the objective</li>
-            <li className="dot">discussing the current situation</li>
-            <li className="dot">identifying the problem</li>
-            <li className="dot">discussing possible approaches</li>
-            <li className="dot">determining whether Kryzect is a fit</li>
+          <ul className="item-list">
+            <li className="item-card">understanding the objective</li>
+            <li className="item-card">discussing the current situation</li>
+            <li className="item-card">identifying the problem</li>
+            <li className="item-card">discussing possible approaches</li>
+            <li className="item-card">determining whether Kryzect is a fit</li>
           </ul>
         </div>
       </section>
@@ -74,10 +74,10 @@ function BookACall() {
               What it is not.
             </h2>
           </div>
-          <ul className="dot-list">
-            <li className="dot">a forced sales call</li>
-            <li className="dot">a requirement to have a technical specification</li>
-            <li className="dot">a commitment to hire Kryzect</li>
+          <ul className="item-list">
+            <li className="item-card">a forced sales call</li>
+            <li className="item-card">a requirement to have a technical specification</li>
+            <li className="item-card">a commitment to hire Kryzect</li>
           </ul>
         </div>
       </section>
@@ -108,7 +108,7 @@ function BookACall() {
                   fake one). To get on our calendar in the meantime, email us and we&apos;ll find a
                   time.
                 </p>
-                <Button href={`mailto:${CONTACT_EMAIL}`}>Email {CONTACT_EMAIL} →</Button>
+                <Button href={`mailto:${CONTACT_EMAIL}`}>Email us to Schedule →</Button>
               </div>
             )}
           </div>

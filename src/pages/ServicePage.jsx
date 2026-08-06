@@ -100,9 +100,9 @@ function ServicePage() {
       <section className="page-section">
         <div className="page-container">
           <SectionHeading kicker="Capabilities" title="What we build." />
-          <ul className="dot-list">
+          <ul className="item-list item-list--dense">
             {service.capabilities.map((capability) => (
-              <li className="dot" key={capability}>
+              <li className="item-card" key={capability}>
                 {capability}
               </li>
             ))}
@@ -114,9 +114,9 @@ function ServicePage() {
       <section className="page-section">
         <div className="page-container">
           <SectionHeading kicker="Use cases" title="Where it applies." />
-          <ul className="dot-list">
+          <ul className="item-list item-list--dense">
             {service.useCases.map((useCase) => (
-              <li className="dot" key={useCase}>
+              <li className="item-card" key={useCase}>
                 {useCase}
               </li>
             ))}
@@ -159,11 +159,12 @@ function ServicePage() {
         <section className="page-section">
           <div className="page-container">
             <SectionHeading kicker="Related" title="Explore related services." />
-            <ul className="related-list">
+            <ul className="related-grid">
               {related.map((item) => (
-                <li className="related-list__item" key={item.slug}>
-                  <Link className="related-list__link" to={`/services/${item.slug}`}>
-                    {item.title} →
+                <li className="related-card" key={item.slug}>
+                  <Link className="related-card__link" to={`/services/${item.slug}`}>
+                    <span className="related-card__title">{item.title}</span>
+                    <span className="related-card__desc">{item.shortDescription}</span>
                   </Link>
                 </li>
               ))}

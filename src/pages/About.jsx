@@ -71,13 +71,14 @@ function About() {
               an AI model, or a feature list. We believe the better starting point is the
               objective.
             </p>
-            <ul className="story__questions">
-              {QUESTIONS.map((q) => (
-                <li className="story__question" key={q}>
-                  {q}
+            <ol className="question-grid">
+              {QUESTIONS.map((q, i) => (
+                <li className="question-card" key={q}>
+                  <span className="question-card__num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="question-card__text">{q}</span>
                 </li>
               ))}
-            </ul>
+            </ol>
             <p className="story__para">
               Kryzect was built around that thinking.
             </p>

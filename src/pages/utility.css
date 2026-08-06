@@ -30,6 +30,12 @@
   font-weight: var(--weight-semibold);
   color: var(--color-text);
   margin-bottom: var(--space-4);
+  width: fit-content;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.utility-section__heading:hover {
+  color: var(--color-accent);
 }
 
 .utility-section__para {
@@ -62,9 +68,18 @@
 .utility-section__list-item {
   position: relative;
   padding-left: var(--space-5);
+  width: fit-content;
   color: var(--color-text-secondary);
   font-size: var(--text-md);
   line-height: 1.6;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    font-weight var(--duration-fast) var(--ease-out);
+}
+
+.utility-section__list-item:hover {
+  color: var(--color-accent);
+  font-weight: var(--weight-semibold);
 }
 
 .utility-section__list-item::before {

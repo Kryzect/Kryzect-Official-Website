@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import Logo from './Logo.jsx'
 
-const INTRO_MS = 1400
+const INTRO_MS = 3200
 const FADE_MS = 320
 
 function prefersReducedMotion() {

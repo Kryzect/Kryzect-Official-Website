@@ -40,7 +40,7 @@ function Contact() {
               Book a Call
             </Button>
             <Button href={`mailto:${CONTACT_EMAIL}`} variant="ghost">
-              Email {CONTACT_EMAIL}
+              Email us
             </Button>
           </div>
         </div>
@@ -91,7 +91,7 @@ function Contact() {
               <h3 className="contact-option__title">Email</h3>
               <p className="contact-option__text">Prefer email? Write to us directly.</p>
               <Button href={`mailto:${CONTACT_EMAIL}`} variant="ghost">
-                {CONTACT_EMAIL}
+                Email us →
               </Button>
             </div>
           </div>

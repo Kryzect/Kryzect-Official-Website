@@ -60,6 +60,14 @@ function SectionHeading({ kicker, title }) {
   )
 }
 
+// Split a "heading — detail" string at the em-dash for feature cards.
+function splitOnDash(text) {
+  const separator = ' — '
+  const index = text.indexOf(separator)
+  if (index === -1) return { title: null, body: text }
+  return { title: text.slice(0, index), body: text.slice(index + separator.length) }
+}
+
 function ProductPage() {
   const { slug } = useParams()
   const product = getProduct(slug)
@@ -134,13 +142,17 @@ function ProductPage() {
           <div className="story">
             <p className="story__para">{product.problem}</p>
           </div>
-          {product.painPoints?.length > 0 ? (
-            <ul className="dot-list">
-              {product.painPoints.map((point) => (
-                <li className="dot" key={point}>
-                  {point}
-                </li>
-              ))}
+{product.painPoints?.length > 0 ? (
+            <ul className="feature-grid">
+              {product.painPoints.map((point) => {
+                const { title, body } = splitOnDash(point)
+                return (
+                  <li className="feature-card" key={point}>
+                    {title && <span className="feature-card__title">{title}</span>}
+                    <p className="feature-card__body">{body}</p>
+                  </li>
+                )
+              })}
             </ul>
           ) : null}
         </div>
@@ -158,12 +170,16 @@ function ProductPage() {
             </p>
           </div>
           {product.postmortemAnswers?.length > 0 ? (
-            <ul className="dot-list">
-              {product.postmortemAnswers.map((answer) => (
-                <li className="dot" key={answer}>
-                  {answer}
-                </li>
-              ))}
+            <ul className="feature-grid">
+              {product.postmortemAnswers.map((answer) => {
+                const { title, body } = splitOnDash(answer)
+                return (
+                  <li className="feature-card" key={answer}>
+                    {title && <span className="feature-card__title">{title}</span>}
+                    <p className="feature-card__body">{body}</p>
+                  </li>
+                )
+              })}
             </ul>
           ) : null}
         </div>
@@ -209,9 +225,9 @@ function ProductPage() {
         <div className="page-container">
           <SectionHeading kicker="Capabilities" title="Key capabilities." />
           {product.capabilities.length > 0 ? (
-            <ul className="dot-list">
+            <ul className="item-list item-list--dense">
               {product.capabilities.map((capability) => (
-                <li className="dot" key={capability}>
+                <li className="item-card" key={capability}>
                   {capability}
                 </li>
               ))}
@@ -273,9 +289,9 @@ function ProductPage() {
         <div className="page-container">
           <SectionHeading kicker="Ahead" title="Roadmap." />
           {product.roadmap.length > 0 ? (
-            <ul className="dot-list">
+            <ul className="item-list item-list--dense">
               {product.roadmap.map((item) => (
-                <li className="dot" key={item}>
+                <li className="item-card" key={item}>
                   {item}
                 </li>
               ))}

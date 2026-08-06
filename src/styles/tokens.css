@@ -20,6 +20,9 @@
   --color-accent-active: #6c97f7; /* active / seated (center icon) */
   --color-accent-muted: rgb(143 175 255 / 0.18); /* subtle accent tint/fill */
 
+  /* ---- Color: Semantic ---- */
+  --color-danger: #f27d8c; /* error / invalid states */
+
   /* ---- Typography families ---- */
   --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Public Sans', 'Segoe UI', system-ui, sans-serif;

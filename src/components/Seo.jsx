@@ -43,7 +43,7 @@ function Seo({ title, description, path, type = 'website', image, noindex }) {
     if (typeof document === 'undefined') return
 
     const url = `${SITE_URL}${path === '/' ? '/' : path}`
-    const fullTitle = `${title} — ${SITE_NAME}`
+    const fullTitle = `${SITE_NAME} — ${title}`
     const ogImage = resolveUrl(image || LOGO_URL)
 
     document.title = fullTitle

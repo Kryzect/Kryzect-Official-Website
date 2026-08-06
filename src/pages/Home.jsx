@@ -6,18 +6,10 @@ import { SERVICE_CATEGORIES } from '../data/services.js'
 import { PRODUCTS } from '../data/products.js'
 import { PROJECTS } from '../data/projects.js'
 import { ARTICLES } from '../data/articles.js'
+import { BRAND_VALUES } from '../data/values.js'
 
 import './home.css'
 import './blog.css'
-
-// Home — built to Blueprint V2. All copy verbatim from the Blueprint.
-const VALUES = [
-  'Clarity Before Code',
-  'Purpose Over Hype',
-  'Engineering With Intent',
-  'Honest Communication',
-  'Built for What Comes Next',
-]
 
 const STEPS = [
   {
@@ -232,9 +224,10 @@ function Home() {
             We don&apos;t believe technology should be selected before the problem is understood.
           </p>
           <ul className="values">
-            {VALUES.map((value) => (
-              <li className="value" key={value}>
-                {value}
+            {BRAND_VALUES.map((value) => (
+              <li className="value" key={value.title}>
+                <span className="value__name">{value.title}</span>
+                <p className="value__detail">{value.detail}</p>
               </li>
             ))}
           </ul>
