@@ -6,6 +6,8 @@ import About from './pages/About.jsx'
 import WhyKryzect from './pages/WhyKryzect.jsx'
 import Team from './pages/Team.jsx'
 import Process from './pages/Process.jsx'
+import Services from './pages/Services.jsx'
+import ServicePage from './pages/ServicePage.jsx'
 import Placeholder from './pages/Placeholder.jsx'
 
 function App() {
@@ -17,9 +19,10 @@ function App() {
         <Route path="/why-kryzect" element={<WhyKryzect />} />
         <Route path="/team" element={<Team />} />
         <Route path="/process" element={<Process />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/services/:slug" element={<ServicePage />} />
 
         {/* Core destinations — placeholders until each page is built */}
-        <Route path="/services" element={<Placeholder title="Services" />} />
         <Route path="/work" element={<Placeholder title="Work" />} />
         <Route path="/products" element={<Placeholder title="Products" />} />
         <Route path="/products/ai-postmortem" element={<Placeholder title="AI Postmortem" />} />
