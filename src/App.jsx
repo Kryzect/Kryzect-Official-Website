@@ -12,6 +12,8 @@ import Products from './pages/Products.jsx'
 import ProductPage from './pages/ProductPage.jsx'
 import Work from './pages/Work.jsx'
 import CaseStudy from './pages/CaseStudy.jsx'
+import Blog from './pages/Blog.jsx'
+import ArticlePage from './pages/ArticlePage.jsx'
 import Placeholder from './pages/Placeholder.jsx'
 
 function App() {
@@ -29,9 +31,10 @@ function App() {
         <Route path="/products/:slug" element={<ProductPage />} />
         <Route path="/work" element={<Work />} />
         <Route path="/work/:slug" element={<CaseStudy />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<ArticlePage />} />
 
         {/* Core destinations — placeholders until each page is built */}
-        <Route path="/blog" element={<Placeholder title="Blog" />} />
         <Route path="/contact" element={<Placeholder title="Contact" />} />
         <Route path="/book-a-call" element={<Placeholder title="Book a Call" />} />
 

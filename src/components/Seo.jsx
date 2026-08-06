@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 // Lightweight per-route head management (no external SEO lib).
 // Sets <title>, meta description, canonical, and Open Graph/Twitter tags
 // on every route change. Safe no-op during SSR (not used here).
+// `path` is the app route (e.g. "/blog/my-slug") — used for canonical + og:url.
+// `image` optional — used for og:image / twitter:image (articles, etc.).
 
 const SITE_NAME = 'Kryzect'
 
@@ -26,7 +28,7 @@ function upsertLink(rel, href) {
   el.setAttribute('href', href)
 }
 
-function Seo({ title, description, path, type = 'website' }) {
+function Seo({ title, description, path, type = 'website', image }) {
   useEffect(() => {
     if (typeof document === 'undefined') return
 
@@ -41,8 +43,13 @@ function Seo({ title, description, path, type = 'website' }) {
     upsertMeta('meta', 'property', 'og:type', type)
     upsertMeta('meta', 'name', 'twitter:title', fullTitle)
     upsertMeta('meta', 'name', 'twitter:description', description)
+    if (image) {
+      const imageUrl = image.startsWith('http') ? image : `${window.location.origin}${image}`
+      upsertMeta('meta', 'property', 'og:image', imageUrl)
+      upsertMeta('meta', 'name', 'twitter:image', imageUrl)
+    }
     upsertLink('canonical', url)
-  }, [title, description, path, type])
+  }, [title, description, path, type, image])
 
   return null
 }

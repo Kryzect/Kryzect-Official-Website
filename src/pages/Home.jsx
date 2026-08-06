@@ -1,11 +1,13 @@
 import Logo from '../components/Logo.jsx'
 import Button from '../components/Button.jsx'
+import ArticleCard from '../components/ArticleCard.jsx'
 import { SERVICE_CATEGORIES } from '../data/services.js'
 import { PRODUCTS } from '../data/products.js'
 import { PROJECTS } from '../data/projects.js'
 import { ARTICLES } from '../data/articles.js'
 
 import './home.css'
+import './blog.css'
 
 // Home — built to Blueprint V2. All copy verbatim from the Blueprint.
 const VALUES = [
@@ -249,10 +251,7 @@ function Home() {
           {latestArticles.length > 0 ? (
             <div className="blog-grid">
               {latestArticles.map((article) => (
-                <div className="blog-card" key={article.slug}>
-                  <h3 className="blog-card__title">{article.title}</h3>
-                  <p className="blog-card__excerpt">{article.excerpt}</p>
-                </div>
+                <ArticleCard article={article} key={article.slug} />
               ))}
             </div>
           ) : (
