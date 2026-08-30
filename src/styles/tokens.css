@@ -79,7 +79,7 @@
   --shadow-glow: 0 0 24px rgb(143 175 255 / 0.28); /* accent glow */
 
   /* ---- Layout ---- */
-  --container-max: 75rem; /* 1200px */
+  --container-max: min(90rem, 100% - 3rem); /* 1440px, fluid on ultra-wide */
   --header-height: 4rem; /* 64px */
 
   /* ---- Motion ---- */

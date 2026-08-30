@@ -835,4 +835,16 @@
   .item-list--dense {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
+
+  .value-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .doctrine-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .step-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
