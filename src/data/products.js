@@ -11,9 +11,9 @@ export const PRODUCTS = [
     description:
       'Submit raw incident data once — alerts, log snippets, engineer notes — and receive a structured, human-reviewed postmortem report.',
     problem:
-      'Postmortems are the single most effective tool for turning production outages into lasting reliability improvements, yet most teams struggle to write them consistently. They are written too late, too inconsistently, and too shallowly — buried in chat instead of turned into action.',
+      'After an outage, useful knowledge can be scattered across alerts, logs, and engineer notes. IncidentIQ explores how to organize that material into a consistent draft that engineers can review and improve.',
     painPoints: [
-      'Postmortems are slow — a thorough write-up takes 4–8 hours of an engineer’s time, often days after the incident, when the details are already fuzzy.',
+      'Postmortems are slow — a thorough write-up takes time, and details can be lost when documentation is delayed.',
       'Postmortems are inconsistent — every team has its own template, its own depth of analysis, its own idea of what is acceptable.',
       'Postmortems do not teach — findings sit in isolated documents that are never cross-referenced against past incidents or runbook knowledge.',
       'Teams fix the same bug twice — without a knowledge base connecting new incidents to old ones, the same root cause comes back months later.',
@@ -29,7 +29,7 @@ export const PRODUCTS = [
     audiences: [
       {
         who: 'SREs and backend engineers on call',
-        why: 'They live through the incident. After the fire is out, they upload the timeline and review a draft report in minutes instead of writing one from scratch.',
+        why: 'They live through the incident. After the fire is out, they upload the timeline and review a generated draft against the incident evidence.',
       },
       {
         who: 'Engineering managers',
@@ -56,11 +56,11 @@ export const PRODUCTS = [
     ],
     technicalApproach: {
       text: 'IncidentIQ is an API-first system in which orchestration and persistence stay separated from the AI work. Each AI finding is produced as a draft and held for mandatory human review — no report path is finalized without recorded approval.',
-      note: 'Detailed implementation and configuration are documented in the public repository and deployment notes. This page describes the product, not confidential architecture.',
+      note: 'Detailed implementation and configuration are documented in the public repository and deployment notes. Implementation details can change during development.',
     },
     status: 'In Development',
     statusNote:
-      'An experimental frontend is publicly available at incidentiq.pages.dev while the product is refined. Only known, real information is shown here.',
+      'An experimental frontend is publicly available at incidentiq.pages.dev while the product is refined. The product is still in development.',
     screenshots: [],
     liveUrl: 'https://incidentiq.pages.dev/',
     roadmap: [
@@ -74,4 +74,5 @@ export const PRODUCTS = [
   },
 ]
 
-export const getProduct = (slug) => PRODUCTS.find((p) => p.slug === slug) ?? null
+export const getProduct = (slug) =>
+  PRODUCTS.find((p) => p.slug === slug) ?? null

@@ -1,47 +1,52 @@
-// Kryzect — FAQ content. Verbatim from Blueprint V2 §46.
-// Questions and answers are taken exactly as written; intended meaning unaltered.
-
 export const FAQS = [
   {
     question: 'What does Kryzect build?',
     answer:
-      'Web, mobile, AI, automation, SaaS, cloud, data, e-commerce, APIs, dashboards, integrations, and custom software.',
+      'Websites, web and mobile applications, AI systems, automation, SaaS, APIs, dashboards, and connected business software. We clarify the scope before recommending an approach.',
   },
   {
     question: 'Do I need a technical specification?',
-    answer: 'No.',
+    answer:
+      'No. Bring the goal, current workflow, and constraints. Discovery helps turn that context into a useful scope.',
   },
   {
-    question: 'Do you work with small businesses?',
-    answer: 'Yes.',
+    question: 'Do you work with small businesses and individuals?',
+    answer:
+      'Yes. Focused websites and small projects can use a lighter engagement. More involved systems need deeper discovery.',
   },
   {
-    question: 'Do you work with startups?',
-    answer: 'Yes.',
+    question: 'Can you help a startup with an MVP?',
+    answer:
+      'We can help define the first useful scope, plan the architecture, and build an initial product. Features and milestones are agreed around the priorities and budget.',
   },
   {
-    question: 'Do you work with individuals?',
-    answer: 'Yes, where the project is a good fit.',
-  },
-  {
-    question: 'Do you publish pricing?',
-    answer: 'No fixed public pricing. Projects vary based on scope and objectives.',
+    question: 'How is pricing decided?',
+    answer:
+      'Pricing depends on scope, complexity, timeline, and delivery requirements. We provide an estimate and agree the commercial terms before work begins.',
   },
   {
     question: 'Can you work with an existing system?',
-    answer: 'Yes, depending on the technology and situation.',
+    answer:
+      'We first review the technology, access, documentation, and constraints. The recommendation may be an integration, an extension, or a staged replacement.',
   },
   {
-    question: 'Can you build something not listed?',
-    answer: 'Yes. The listed services are categories, not limitations.',
+    question: 'How do changes during a project work?',
+    answer:
+      'We assess the impact on scope, cost, and delivery dates, then agree the change before carrying out additional work.',
+  },
+  {
+    question: 'Who owns the work and receives access?',
+    answer:
+      'Ownership, source-code delivery, third-party licenses, and handover access are specified in the project agreement.',
+  },
+  {
+    question: 'Is maintenance included?',
+    answer:
+      'Support, warranty, and ongoing maintenance are defined in the project agreement. Continued feature development or a maintenance arrangement can be scoped separately.',
   },
   {
     question: 'Do you work internationally?',
-    answer: 'Yes.',
-  },
-  {
-    question: 'Can I just discuss an idea?',
     answer:
-      'Yes. Discovery exists to understand the problem before defining a solution.',
+      'Yes. Kryzect is based in Lahore, Pakistan and works remotely. Communication and review arrangements are agreed for each engagement.',
   },
 ]

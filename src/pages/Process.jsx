@@ -1,58 +1,65 @@
-import { PROCESS_STAGES, PROCESS_PRINCIPLE } from '../data/process.js'
-import Seo from '../components/Seo.jsx'
-
-import './company.css'
-
-// Process — "How do we actually work?" Blueprint V2 §30.
-// This is the detailed 8-stage workflow (expanded from the Home 6-step journey).
-// Copy verbatim from the spec.
-function Process() {
+import PageIntro from '../components/PageIntro.jsx'
+import ProjectCta from '../components/ProjectCta.jsx'
+const stages = [
+  [
+    'Discover',
+    'Understand the users, business goal, existing workflow, systems, and constraints.',
+    'A shared account of the problem and whether further discovery is needed.',
+  ],
+  [
+    'Define',
+    'Agree priorities, requirements, boundaries, and success criteria.',
+    'A scope with deliverables, assumptions, and acceptance criteria.',
+  ],
+  [
+    'Plan & design',
+    'Map the user experience, architecture, data, integrations, and delivery milestones.',
+    'A design and technical plan suited to the agreed scope.',
+  ],
+  [
+    'Build & review',
+    'Develop in increments and review progress at agreed checkpoints.',
+    'Working increments, feedback, and documented decisions. Scope changes are assessed before extra work starts.',
+  ],
+  [
+    'Test & deliver',
+    'Check the agreed functionality, responsive behavior, and relevant performance and security requirements.',
+    'An acceptance review, deployment, and handover of agreed documentation and access.',
+  ],
+  [
+    'Support & improve',
+    'Review what needs maintenance, optimization, or further development.',
+    'A separate support or development scope where ongoing work is needed.',
+  ],
+]
+export default function Process() {
   return (
     <>
-      <Seo
-        title="How We Work"
-        description="How Kryzect works — an 8-stage process from discovery to improvement, starting before the code."
+      <PageIntro
         path="/process"
+        label="How We Work"
+        title="A clear process, with useful outputs."
+        description="The depth of discovery depends on the project. A focused website needs a lighter path than a software platform with multiple workflows and integrations."
       />
-      {/* ============ HERO ============ */}
-      <section className="page-hero">
-        <div className="page-container">
-          <h1 className="page-hero__title">The process starts before the code.</h1>
-          <p className="page-hero__text">
-            Every engagement begins not with technology, but with understanding the objective,
-            the people, and the constraints.
-          </p>
-        </div>
-      </section>
-
-      {/* ============ STAGES ============ */}
       <section className="page-section">
         <div className="page-container">
-          <ol className="step-list">
-            {PROCESS_STAGES.map((stage) => (
-              <li className="step" key={stage.number}>
-                <span className="step__number">{stage.number}</span>
-                <h2 className="step__title">{stage.title}</h2>
-                <p className="step__intro">{stage.intro}:</p>
-                <ul className="step__points">
-                  {stage.points.map((point) => (
-                    <li className="step__point" key={point}>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+          <ol className="delivery-stages">
+            {stages.map(([title, text, output], index) => (
+              <li key={title}>
+                <span className="page-section__kicker">0{index + 1}</span>
+                <div>
+                  <h2>{title}</h2>
+                  <p>{text}</p>
+                  <p>
+                    <strong>Output:</strong> {output}
+                  </p>
+                </div>
               </li>
             ))}
           </ol>
-
-          <div className="process-principle">
-            <span className="process-principle__label">Process principle</span>
-            <p className="process-principle__quote">{PROCESS_PRINCIPLE}</p>
-          </div>
         </div>
       </section>
+      <ProjectCta />
     </>
   )
 }
-
-export default Process

@@ -3,11 +3,6 @@ import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import { FAQS } from '../data/faq.js'
 
-import './company.css'
-import './services.css'
-import './faq.css'
-
-// FAQ (Blueprint V2 §46). Questions and answers rendered verbatim from
 // data/faq.js. Uses the shared <details> accordion styling from services.css.
 
 function Faq() {

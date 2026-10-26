@@ -1,3 +1,4 @@
+import { CONTACT_EMAIL } from '../config.js'
 import { Link } from 'react-router-dom'
 
 import Logo from './Logo.jsx'
@@ -13,6 +14,12 @@ function Footer() {
             <Logo />
           </span>
           <p className="site-footer__tagline">Think First. Build Better.</p>
+          <a className="site-footer__contact" href={`mailto:${CONTACT_EMAIL}`}>
+            {CONTACT_EMAIL}
+          </a>
+          <p className="site-footer__location">
+            Lahore, Pakistan · Working remotely
+          </p>
         </div>
 
         <nav className="site-footer__nav" aria-label="Footer">
@@ -30,16 +37,17 @@ function Footer() {
               </ul>
             </div>
           ))}
+          <div className="site-footer__social">
+            <h3 className="site-footer__heading">Connect</h3>
+            <SocialLinks />
+          </div>
         </nav>
-
-        <div className="site-footer__social">
-          <h3 className="site-footer__heading">Connect</h3>
-          <SocialLinks />
-        </div>
       </div>
 
       <div className="site-footer__bottom">
-        <p className="site-footer__legal">© {new Date().getFullYear()} Kryzect. All rights reserved.</p>
+        <p className="site-footer__legal">
+          © {new Date().getFullYear()} Kryzect. All rights reserved.
+        </p>
       </div>
     </footer>
   )

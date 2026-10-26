@@ -1,329 +1,116 @@
-import { useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom'
-
+import { useParams, Link } from 'react-router-dom'
+import PageIntro from '../components/PageIntro.jsx'
 import Button from '../components/Button.jsx'
-import Seo from '../components/Seo.jsx'
-import Breadcrumbs from '../components/Breadcrumbs.jsx'
+import JsonLd from '../components/JsonLd.jsx'
+import SectionHeading from '../components/SectionHeading.jsx'
+import NotFound from './NotFound.jsx'
 import { getProduct } from '../data/products.js'
 import { SITE_URL } from '../data/site.js'
-
-import './company.css'
-import './products.css'
-
-// JSON-LD SoftwareApplication structured data, injected per product render.
-// Only real, known fields are emitted — no fabricated offers, ratings, or
-// release state. Status is declared honestly (e.g. "In Development").
-function ProductSchema({ product }) {
-  const scriptRef = useRef(null)
-
-  useEffect(() => {
-    if (typeof document === 'undefined') return
-    if (!scriptRef.current) {
-      scriptRef.current = document.createElement('script')
-      scriptRef.current.type = 'application/ld+json'
-      document.head.appendChild(scriptRef.current)
-    }
-    const schema = {
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      name: product.name,
-      description: product.description,
-      url: `${SITE_URL}/products/${product.slug}`,
-      applicationCategory: 'DeveloperApplication',
-      operatingSystem: 'Web',
-      author: { '@type': 'Organization', name: 'Kryzect', url: SITE_URL },
-    }
-    if (product.liveUrl) {
-      schema.url = product.liveUrl
-    }
-    scriptRef.current.textContent = JSON.stringify(schema)
-  }, [product])
-
-  useEffect(() => {
-    return () => {
-      if (scriptRef.current) {
-        scriptRef.current.remove()
-        scriptRef.current = null
-      }
-    }
-  }, [])
-
-  return null
-}
-
-function SectionHeading({ kicker, title }) {
-  return (
-    <div className="page-section__heading">
-      <span className="page-section__kicker">{kicker}</span>
-      <h2 className="page-section__title">{title}</h2>
-    </div>
-  )
-}
-
-// Split a "heading — detail" string at the em-dash for feature cards.
-function splitOnDash(text) {
-  const separator = ' — '
-  const index = text.indexOf(separator)
-  if (index === -1) return { title: null, body: text }
-  return { title: text.slice(0, index), body: text.slice(index + separator.length) }
-}
-
-function ProductPage() {
+export default function ProductPage() {
   const { slug } = useParams()
   const product = getProduct(slug)
-
-  if (!product) {
-    return (
-      <>
-        <Seo
-          title="Product not found"
-          description="This product page could not be found. Explore all Kryzect products."
-          path="/products"
-          noindex
-        />
-        <section className="page-hero">
-          <div className="page-container">
-            <h1 className="page-hero__title">Product not found.</h1>
-            <div className="page-hero__actions">
-              <Button to="/products">Back to Products</Button>
-            </div>
-          </div>
-        </section>
-      </>
-    )
-  }
-
+  if (!product) return <NotFound />
   return (
     <>
-      <Seo
-        title={product.name}
+      <PageIntro
+        path={`/products/${slug}`}
+        label={product.name}
+        title="Learn from the incident. Keep the human judgment."
         description={product.description}
-        path={`/products/${product.slug}`}
+      >
+        <p className="status-label">{product.status} · Product experiment</p>
+      </PageIntro>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: product.name,
+          description: product.description,
+          url: `${SITE_URL}/products/${slug}`,
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Web',
+          author: { '@type': 'Organization', name: 'Kryzect', url: SITE_URL },
+        }}
       />
-      <ProductSchema product={product} />
-      <Breadcrumbs
-        items={[
-          { label: 'Home', to: '/' },
-          { label: 'Products', to: '/products' },
-          { label: product.name, to: `/products/${product.slug}` },
-        ]}
-      />
-
-      {/* ============ HERO ============ */}
-      <section className="page-hero">
-        <div className="page-container">
-          <span className="page-hero__kicker">Product · {product.status}</span>
-          <h1 className="page-hero__title">{product.name}</h1>
-          <p className="page-hero__text">{product.tagline}</p>
-          <div className="page-hero__actions">
-            {product.liveUrl ? (
-              <Button href={product.liveUrl} variant="ghost">
-                Visit Live Experiment →
-              </Button>
-            ) : null}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ WHAT IT DOES ============ */}
       <section className="page-section">
-        <div className="page-container">
-          <SectionHeading kicker="Overview" title="What it does." />
-          <div className="story">
-            <p className="story__para">{product.description}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ THE PROBLEM ============ */}
-      <section className="page-section">
-        <div className="page-container">
-          <SectionHeading kicker="Why it exists" title="The problem." />
-          <div className="story">
-            <p className="story__para">{product.problem}</p>
-          </div>
-{product.painPoints?.length > 0 ? (
-            <ul className="feature-grid">
-              {product.painPoints.map((point) => {
-                const { title, body } = splitOnDash(point)
-                return (
-                  <li className="feature-card" key={point}>
-                    {title && <span className="feature-card__title">{title}</span>}
-                    <p className="feature-card__body">{body}</p>
-                  </li>
-                )
-              })}
+        <div className="page-container evidence-layout">
+          <div>
+            <SectionHeading title="A structured starting point for review." />
+            <p className="page-hero__text">{product.problem}</p>
+            <ul className="plain-list">
+              {product.capabilities.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
-          ) : null}
-        </div>
-      </section>
-
-      {/* ============ WHAT A POSTMORTEM IS ============ */}
-      <section className="page-section">
-        <div className="page-container">
-          <SectionHeading kicker="Basics" title="What a postmortem is." />
-          <div className="story">
-            <p className="story__para">
-              A postmortem is a structured document produced after a production incident. A good
-              one is blameless — it focuses on systems and processes, not people — and it answers
-              four questions:
+          </div>
+          <div className="evidence-note">
+            <h2>Explore the public experiment.</h2>
+            <p>{product.statusNote}</p>
+            <p>
+              Use sample incident data. Do not submit production logs,
+              credentials, personal information, or confidential records to the
+              experiment.
+            </p>
+            {product.liveUrl && (
+              <Button href={product.liveUrl} variant="ghost">
+                Open Experiment ↗
+              </Button>
+            )}
+            <p className="section-note">
+              The experiment is separate from this agency website. Availability
+              and behavior may change during development.
             </p>
           </div>
-          {product.postmortemAnswers?.length > 0 ? (
-            <ul className="feature-grid">
-              {product.postmortemAnswers.map((answer) => {
-                const { title, body } = splitOnDash(answer)
-                return (
-                  <li className="feature-card" key={answer}>
-                    {title && <span className="feature-card__title">{title}</span>}
-                    <p className="feature-card__body">{body}</p>
-                  </li>
-                )
-              })}
-            </ul>
-          ) : null}
         </div>
       </section>
-
-      {/* ============ WHO IT'S FOR ============ */}
       <section className="page-section">
         <div className="page-container">
-          <SectionHeading kicker="Audience" title="Who it is for." />
-          <div className="story">
-            <p className="story__para">{product.audience}</p>
-          </div>
-          {product.audiences?.length > 0 ? (
-            <div className="audience-grid">
-              {product.audiences.map((audience) => (
-                <div className="audience-card" key={audience.who}>
-                  <h3 className="audience-card__who">{audience.who}</h3>
-                  <p className="audience-card__why">{audience.why}</p>
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </div>
-      </section>
-
-      {/* ============ HOW IT WORKS ============ */}
-      <section className="page-section">
-        <div className="page-container">
-          <SectionHeading kicker="Under the hood" title="How it works." />
+          <SectionHeading title="How the workflow fits together." />
           <ol className="process-list">
-            {product.howItWorks.map((step, index) => (
-              <li className="process-list__item" key={step}>
-                <span className="process-list__number">{String(index + 1).padStart(2, '0')}</span>
-                <span>{step}</span>
+            {product.howItWorks.map((item, index) => (
+              <li className="process-list__item" key={item}>
+                <span className="process-list__number">0{index + 1}</span>
+                <span>{item}</span>
               </li>
             ))}
           </ol>
+          <p className="section-note">{product.technicalApproach.text}</p>
         </div>
       </section>
-
-      {/* ============ KEY CAPABILITIES ============ */}
-      <section className="page-section">
-        <div className="page-container">
-          <SectionHeading kicker="Capabilities" title="Key capabilities." />
-          {product.capabilities.length > 0 ? (
-            <ul className="item-list item-list--dense">
-              {product.capabilities.map((capability) => (
-                <li className="item-card" key={capability}>
-                  {capability}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="home-page__empty">Capabilities are being documented as they are built.</p>
-          )}
-        </div>
-      </section>
-
-      {/* ============ TECHNICAL APPROACH ============ */}
-      <section className="page-section">
-        <div className="page-container">
-          <SectionHeading kicker="Approach" title="Technical approach." />
-          <div className="service-note">
-            <p className="service-note__body">{product.technicalApproach.text}</p>
-            <p className="service-note__body service-note__body--muted">{product.technicalApproach.note}</p>
+      {product.screenshots.length > 0 && (
+        <section className="page-section">
+          <div className="page-container screenshot-grid">
+            {product.screenshots.map((shot) => (
+              <img
+                key={shot.src}
+                className="screenshot"
+                src={shot.src}
+                alt={shot.alt}
+                width={shot.width}
+                height={shot.height}
+                loading="lazy"
+                decoding="async"
+              />
+            ))}
           </div>
-        </div>
-      </section>
-
-      {/* ============ SCREENSHOTS ============ */}
+        </section>
+      )}
       <section className="page-section">
         <div className="page-container">
-          <SectionHeading kicker="Visuals" title="Screenshots." />
-          {product.screenshots.length > 0 ? (
-            <div className="screenshot-grid">
-              {product.screenshots.map((screenshot) => (
-                <img
-                  className="screenshot"
-                  key={screenshot.src}
-                  src={screenshot.src}
-                  alt={screenshot.alt ?? `${product.name} screenshot`}
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          ) : (
-            <p className="home-page__empty">
-              Screenshots are being prepared and will appear here when real ones are available.
-            </p>
-          )}
-        </div>
-      </section>
-
-      {/* ============ CURRENT STATUS ============ */}
-      <section className="page-section">
-        <div className="page-container">
-          <SectionHeading kicker="Status" title="Current status." />
-          <div className="product-status">
-            <span className="product-status__badge">{product.status}</span>
-            <p className="product-status__text">{product.statusNote}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ ROADMAP ============ */}
-      <section className="page-section">
-        <div className="page-container">
-          <SectionHeading kicker="Ahead" title="Roadmap." />
-          {product.roadmap.length > 0 ? (
-            <ul className="item-list item-list--dense">
-              {product.roadmap.map((item) => (
-                <li className="item-card" key={item}>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="home-page__empty">The roadmap is being shaped as the product develops.</p>
-          )}
-        </div>
-      </section>
-
-      {/* ============ FUTURE DIRECTION ============ */}
-      <section className="page-section page-section--final">
-        <div className="page-container">
-          <SectionHeading kicker="Where this is going" title="Future direction." />
-          <div className="story">
-            <p className="story__para">{product.futureDirection}</p>
-          </div>
+          <SectionHeading
+            kicker="Planned development"
+            title="Where the product goes next."
+          />
+          <p className="page-hero__text">
+            The roadmap includes organization access, account-level API usage,
+            and integrations with incident and issue-management tools. These are
+            planned areas of work, not a claim that they are available today.
+          </p>
           <div className="section-cta">
-            {product.liveUrl ? (
-              <Button href={product.liveUrl} variant="ghost">
-                Visit Live Experiment →
-              </Button>
-            ) : null}
-            <Button to="/blog">Read Our AI Writing →</Button>
-            <Button to="/book-a-call" variant="ghost">
-              Book a Call →
-            </Button>
+            <Link to="/contact">Discuss a related engineering project →</Link>
           </div>
         </div>
       </section>
     </>
   )
 }
-
-export default ProductPage

@@ -1,9 +1,6 @@
 import { TEAM_INTRO, TEAM_MEMBERS } from '../data/team.js'
 import Seo from '../components/Seo.jsx'
 
-import './company.css'
-
-// Team — "Who are the people behind Kryzect?" Blueprint V2 §16.
 // Data-driven from data/team.js so future members can be added without
 // touching this component. Never invents team members.
 
@@ -55,7 +52,12 @@ function Team() {
                 <ul className="team-card__links">
                   {member.links.map((link) => (
                     <li key={link.label}>
-                      <a className="team-card__link" href={link.href} target="_blank" rel="noreferrer">
+                      <a
+                        className="team-card__link"
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <svg
                           className="team-card__link-icon"
                           viewBox="0 0 24 24"
@@ -72,11 +74,6 @@ function Team() {
               </article>
             ))}
           </div>
-
-          <p className="team-note">
-            Kryzect is growing its network of collaborators and plans to build a larger
-            engineering team. New members will be added here as the team grows.
-          </p>
         </div>
       </section>
     </>

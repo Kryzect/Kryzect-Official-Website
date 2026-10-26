@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import JsonLd from '../components/JsonLd.jsx'
+import { formatDate, articleWordCount } from '../utils/articles.js'
 import { useParams } from 'react-router-dom'
 
 import Button from '../components/Button.jsx'
@@ -7,19 +8,6 @@ import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import ArticleCard from '../components/ArticleCard.jsx'
 import { getArticle, getRelatedArticles } from '../data/articles.js'
 import { SITE_URL } from '../data/site.js'
-
-import './company.css'
-import './blog.css'
-
-function formatDate(iso) {
-  const date = new Date(iso)
-  if (Number.isNaN(date.getTime())) return iso
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }).format(date)
-}
 
 // Renders one content block into semantic markup (see data/articles.js).
 function ContentBlock({ block }) {
@@ -37,54 +25,36 @@ function ContentBlock({ block }) {
         </ul>
       )
     case 'quote':
-      return <blockquote className="article-body__quote">{block.text}</blockquote>
+      return (
+        <blockquote className="article-body__quote">{block.text}</blockquote>
+      )
     case 'p':
     default:
       return <p className="article-body__p">{block.text}</p>
   }
 }
 
-// JSON-LD Article structured data, injected once per article render.
 function ArticleSchema({ article }) {
-  const scriptRef = useRef(null)
-
-  useEffect(() => {
-    if (typeof document === 'undefined') return
-    if (!scriptRef.current) {
-      scriptRef.current = document.createElement('script')
-      scriptRef.current.type = 'application/ld+json'
-      document.head.appendChild(scriptRef.current)
-    }
-    const wordCount = article.content.reduce(
-      (sum, block) => sum + (block.text ? block.text.split(/\s+/).length : 0),
-      0,
-    )
-    scriptRef.current.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: article.title,
-      description: article.excerpt,
-      image: article.coverImage ? `${SITE_URL}${article.coverImage.src}` : undefined,
-      datePublished: article.date,
-      dateModified: article.date,
-      author: { '@type': 'Person', name: article.author },
-      publisher: { '@type': 'Organization', name: 'Kryzect', url: SITE_URL },
-      mainEntityOfPage: `${SITE_URL}/blog/${article.slug}`,
-      wordCount,
-      articleSection: article.category,
-    })
-  }, [article])
-
-  useEffect(() => {
-    return () => {
-      if (scriptRef.current) {
-        scriptRef.current.remove()
-        scriptRef.current = null
-      }
-    }
-  }, [])
-
-  return null
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: article.title,
+        description: article.excerpt,
+        image: article.coverImage
+          ? new URL(article.coverImage.src, SITE_URL).href
+          : undefined,
+        datePublished: article.date,
+        dateModified: article.updated ?? article.date,
+        author: { '@type': 'Person', name: article.author },
+        publisher: { '@type': 'Organization', name: 'Kryzect', url: SITE_URL },
+        mainEntityOfPage: `${SITE_URL}/blog/${article.slug}`,
+        wordCount: articleWordCount(article.content),
+        articleSection: article.category,
+      }}
+    />
+  )
 }
 
 function ArticlePage() {
@@ -138,7 +108,9 @@ function ArticlePage() {
           <div className="page-container">
             <span className="article__category">{article.category}</span>
             <h1 className="article__title">{article.title}</h1>
-            {article.subtitle ? <p className="article__subtitle">{article.subtitle}</p> : null}
+            {article.subtitle ? (
+              <p className="article__subtitle">{article.subtitle}</p>
+            ) : null}
             <div className="article__meta">
               <span className="article__author">By {article.author}</span>
               <time dateTime={article.date}>{formatDate(article.date)}</time>
@@ -156,7 +128,7 @@ function ArticlePage() {
               srcSet={article.coverImage.srcSet}
               sizes={article.coverImage.sizes}
               alt={article.coverImage.alt ?? article.title}
-              loading="lazy"
+              fetchPriority="high"
               decoding="async"
               width={article.coverImage.width}
               height={article.coverImage.height}
@@ -194,7 +166,9 @@ function ArticlePage() {
       <section className="page-section page-section--final">
         <div className="page-container">
           <div className="article-cta">
-            <h2 className="article-cta__title">Need help applying this to your business?</h2>
+            <h2 className="article-cta__title">
+              Need help applying this to your business?
+            </h2>
             <div className="section-cta">
               <Button to="/contact">Talk to Kryzect →</Button>
             </div>

@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local audit evidence and transient builds
+.audit/
+.qa/
+.build/

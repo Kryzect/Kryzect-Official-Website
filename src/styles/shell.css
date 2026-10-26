@@ -212,18 +212,23 @@
   height: 2px;
   border-radius: var(--radius-full);
   background: var(--color-text);
-  transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
 }
 
-.site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(1) {
+.site-header__toggle[aria-expanded='true']
+  .site-header__toggle-bar:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
 
-.site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(2) {
+.site-header__toggle[aria-expanded='true']
+  .site-header__toggle-bar:nth-child(2) {
   opacity: 0;
 }
 
-.site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(3) {
+.site-header__toggle[aria-expanded='true']
+  .site-header__toggle-bar:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
 
@@ -384,79 +389,6 @@
   height: 1.125rem;
   flex-shrink: 0;
   fill: currentColor;
-}
-
-/* ===== Loading intro ===== */
-.loading {
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  display: grid;
-  place-items: center;
-  background: var(--color-background);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--duration-base) var(--ease-out);
-}
-
-.loading.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.loading--leaving {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.loading__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: var(--space-6);
-  padding: var(--space-6);
-}
-
-.loading__logo {
-  width: 10rem; /* 160px */
-  height: 10rem;
-}
-
-.loading__brand {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  font-weight: var(--weight-semibold);
-  color: var(--color-text);
-  letter-spacing: 0.02em;
-  margin: 0;
-}
-
-.loading__tagline {
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-  margin: 0;
-}
-
-/* ===== Page placeholder ===== */
-.page-placeholder {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-24) var(--space-6);
-}
-
-.page-placeholder h1 {
-  font-size: var(--text-4xl);
-  margin-bottom: var(--space-4);
-}
-
-.page-placeholder p {
-  color: var(--color-text-secondary);
-  font-size: var(--text-lg);
 }
 
 /* ===== Responsive ===== */

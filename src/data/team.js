@@ -3,13 +3,13 @@
 // gracefully. Never invent team members.
 
 export const TEAM_INTRO =
-  'Kryzect is currently a founder-led technology company, with a growing network of collaborators and future plans to build a larger engineering team.'
+  'Kryzect is led by its founder, Muhammad Ali Aamir, who handles business discovery and engineering.'
 
 export const TEAM_MEMBERS = [
   {
     name: 'Muhammad Ali Aamir',
     role: 'Founder & Lead Engineer',
-    bio: 'Data Science and software engineering student focused on full-stack development, AI, automation, data systems, and product engineering.',
+    bio: 'Leads full-stack development, AI, automation, and product engineering at Kryzect. He is studying Data Science at FAST NUCES in Lahore.',
     links: [
       {
         label: 'Personal Portfolio',

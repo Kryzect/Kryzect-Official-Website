@@ -1,380 +1,228 @@
-// Kryzect — utility page content (Terms / Privacy / Cookies / Security / Accessibility).
-// SINGLE source of truth. Edit here, not in the page component.
-//
-// "Last updated" dates are FIXED and generic-but-realistic. They are updated
-// ONLY when the content on this page actually changes. Do not bump them as a
-// routine or cosmetic step.
-//
-// Honesty rule: policies describe the infrastructure that actually exists.
-// The site is a static site with no analytics and no non-essential cookies;
-// the contact form and booking calendar are not yet configured. Nothing here
-// claims systems the site does not use.
-//
-// The contact email used in each page is pulled from src/config.js
-// (CONTACT_EMAIL) at render time — never hardcode an address here.
-//
-// Section model: { heading, paragraphs?: string[], list?: string[], contact?: boolean }
-//   - paragraphs render as <p>
-//   - list renders as a <ul>
-//   - contact: true renders the email button using CONTACT_EMAIL
-
 export const UTILITY_PAGES = [
-  {
-    slug: 'terms',
-    label: 'Terms',
-    kicker: 'Legal',
-    heroText:
-      'The terms that apply when you use this website and engage with Kryzect.',
-    lastUpdated: '2026-08-06',
-    sections: [
-      {
-        heading: '1. Website use',
-        paragraphs: [
-          'These Terms of Use govern your access to and use of the Kryzect website and the information it contains. By using this site, you agree to these terms. If you do not agree, please do not use the site.',
-          'This website describes what Kryzect does. Using it does not create an engagement. Work is only undertaken through separate, written client agreements (see section 9).',
-        ],
-      },
-      {
-        heading: '2. Intellectual property',
-        paragraphs: [
-          'The content of this website — including text, design, the Kryzect logo, and other brand assets — belongs to Kryzect or its licensors and is protected by intellectual property laws.',
-          'You may view and share this content for personal, non-commercial reference with attribution. You may not reproduce, modify, or republish it for commercial purposes without our written permission.',
-        ],
-      },
-      {
-        heading: '3. Content ownership',
-        paragraphs: [
-          'This website does not grant you any ownership or licence over its content beyond the limited, non-commercial use described above.',
-          'Intellectual property created for clients under a written agreement belongs to that client per the terms of their contract.',
-        ],
-      },
-      {
-        heading: '4. Acceptable use',
-        paragraphs: [
-          'You agree to use this website lawfully and not to interfere with its operation or security.',
-          'You may not attempt to disrupt the site, probe it for vulnerabilities beyond reasonable disclosure practice, scrape it aggressively, or use it to distribute harmful content.',
-        ],
-      },
-      {
-        heading: '5. Third-party links',
-        paragraphs: [
-          'This site links to external services such as GitHub, LinkedIn, hosted form providers, and other websites. Those links are provided for convenience; we do not control and are not responsible for their content, privacy practices, or availability.',
-        ],
-      },
-      {
-        heading: '6. Disclaimers',
-        paragraphs: [
-          'This website is provided "as is" and for information only. While we do our best to keep it accurate and current, we make no guarantees about the completeness or accuracy of the content.',
-          'Descriptions of services on this site are informational and are not a binding offer. Nothing on this site is a promise of specific project outcomes.',
-        ],
-      },
-      {
-        heading: '7. Limitation of liability',
-        paragraphs: [
-          'To the fullest extent permitted by law, Kryzect is not liable for any damages arising from your use of this website or from reliance on its content.',
-        ],
-      },
-      {
-        heading: '8. Changes to these terms',
-        paragraphs: [
-          'We may update these terms from time to time to reflect how the site or our business works. When we do, the "Last updated" date above is revised.',
-          'Continued use of the site after changes take effect means you accept the updated terms.',
-        ],
-      },
-      {
-        heading: '9. These are not client contracts',
-        paragraphs: [
-          'These website terms are not client contracts. They govern use of this website only.',
-          'Client work is governed by separate, written agreements agreed with you per project, including:',
-        ],
-        list: [
-          'Proposal',
-          'Scope of work (SOW)',
-          'Contract',
-          'Payment terms',
-          'Intellectual property',
-          'Confidentiality',
-          'Support',
-        ],
-      },
-      {
-        heading: '10. Contact',
-        contact: true,
-        paragraphs: [
-          'If you have questions about these terms, reach us by email at the address below.',
-        ],
-      },
-    ],
-  },
   {
     slug: 'privacy',
     label: 'Privacy',
-    kicker: 'Legal',
+    kicker: 'Website information',
     heroText:
-      'How Kryzect handles the information you share with us, plainly explained.',
-    lastUpdated: '2026-08-06',
+      'How information is handled when you browse this website or contact Kryzect.',
+    lastUpdated: '2026-10-26',
     sections: [
       {
-        heading: '1. Information we collect',
+        heading: 'Information and purposes',
         paragraphs: [
-          'This website is a static site. It does not run analytics or tracking scripts on its own, and it does not set non-essential cookies. We collect only the information you choose to send us.',
+          'We use the details you provide to respond to enquiries, discuss a potential project, and manage any agreed engagement. The form asks for your name, email, and goal; company and project context are optional. Please do not send passwords or sensitive client records.',
+          'Hosting and service providers also process technical request information, such as IP addresses and browser details, to deliver and protect their services.',
         ],
+        contact: false,
       },
       {
-        heading: '2. Contact form data',
+        heading: 'Contact forms and email',
         paragraphs: [
-          'If you use the contact form, we receive what you provide: your name, email address, company (optional), and the details of your project or question. The form also asks about your timeline, service interest, and current system if you choose to share them.',
+          'Form submissions are sent to Web3Forms for delivery to our Gmail inbox. Direct email is handled by our email provider. We use these messages to respond and communicate with you; we do not sell enquiry information.',
         ],
+        contact: false,
       },
       {
-        heading: '3. Booking information',
+        heading: 'Call booking',
         paragraphs: [
-          'If you book a call, we receive the details you provide to schedule it — typically your name and contact information. The booking calendar is not yet configured, so no booking data is currently collected.',
+          'The booking link opens Google Calendar appointment scheduling. Google processes the booking details you enter and supplies Google Meet details after booking. The information is used to arrange and conduct the call.',
         ],
+        contact: false,
       },
       {
-        heading: '4. Email communications',
+        heading: 'Hosting and fonts',
         paragraphs: [
-          'If you email us directly, we receive your email address and the contents of your message. We use email correspondence to respond and, where relevant, to deliver services.',
+          'This website is hosted on Vercel. Fonts are served with the website; browsing does not request fonts from Google Fonts. We do not deploy visitor analytics or advertising trackers in the site code. Providers may maintain technical or security logs under their own policies.',
         ],
+        contact: false,
       },
       {
-        heading: '5. Analytics',
+        heading: 'Service providers',
         paragraphs: [
-          'No analytics are currently deployed on this website. If analytics are added in the future, this policy will be updated to describe what is collected and how it is used.',
+          'Vercel, Web3Forms, and Google provide hosting, form delivery, email, scheduling, and meeting services. They may process information in countries different from your own. Their own privacy terms also apply when you use their services.',
         ],
+        contact: false,
       },
       {
-        heading: '6. Cookies',
+        heading: 'Retention and requests',
         paragraphs: [
-          'This website does not currently set cookies. If non-essential cookies are added later, they will be documented in our Cookie Policy.',
+          'Enquiry correspondence is retained while needed to respond and manage the relationship, and where records must be kept for contractual or legal reasons. You can contact us to ask about, correct, or request deletion of your information. Rights and exceptions depend on the law applicable to your circumstances.',
         ],
+        contact: false,
       },
       {
-        heading: '7. How we use data',
+        heading: 'Contact',
         paragraphs: [
-          'We use the information you share to respond to your enquiry, discuss your project, and, if we work together, to deliver our services.',
-          'We do not sell your personal information, and we do not use it for unrelated marketing without your consent.',
+          'For privacy questions or requests, email Kryzect using the address below.',
         ],
-      },
-      {
-        heading: '8. How data is stored',
-        paragraphs: [
-          'This website is a static site hosted on Vercel. Information you submit through the contact form or email is received by the hosted providers we use (see "Third-party services") and forwarded to us at our email address.',
-        ],
-      },
-      {
-        heading: '9. Third-party services',
-        paragraphs: [
-          'We use a limited set of third-party services to run the site and receive enquiries: the static hosting provider (Vercel), a hosted form provider (once configured), an email provider, and tools we may use to schedule calls.',
-          'These providers receive only what is necessary for the task and apply their own security and data-handling practices. We do not otherwise share your information with third parties unless required by law.',
-        ],
-      },
-      {
-        heading: '10. Retention',
-        paragraphs: [
-          'We keep the information you send us for as long as needed to respond to you and manage our relationship, and where legally required.',
-          'If you ask us to delete your information and we are not otherwise required to keep it, we will remove it.',
-        ],
-      },
-      {
-        heading: '11. Your rights (incl. GDPR/CCPA)',
-        paragraphs: [
-          'If you are located in the EU, UK, or California, you have rights over your personal information, including the right to access, correct, or delete it, and to object to or restrict certain processing.',
-          'To exercise any of these rights, email us at the address below and we will respond within the timeframes required by applicable law.',
-        ],
-      },
-      {
-        heading: '12. Contact',
         contact: true,
-        paragraphs: [
-          'For any privacy question or request, contact us at the address below.',
-        ],
       },
     ],
   },
   {
     slug: 'cookies',
     label: 'Cookies',
-    kicker: 'Legal',
-    heroText:
-      'What cookies (if any) this website uses, and how you can control them.',
-    lastUpdated: '2026-08-06',
+    kicker: 'Website information',
+    heroText: 'The website does not use advertising or analytics cookies.',
+    lastUpdated: '2026-10-26',
     sections: [
       {
-        heading: '1. Necessary cookies',
+        heading: 'Website storage',
         paragraphs: [
-          'This website is a static site and does not require login or session functionality, so it does not currently use necessary cookies for its operation.',
+          'The website code does not set cookies or store enquiry messages in browser storage. The form holds your input in memory while the page is open.',
+          'A session-storage flag remembers whether the homepage brand intro has been shown in the current tab session. It contains no enquiry information and is not used for analytics or advertising. If session storage is unavailable, the automatic intro is skipped.',
         ],
+        contact: false,
       },
       {
-        heading: '2. Analytics cookies',
+        heading: 'External services',
         paragraphs: [
-          'No analytics cookies are used. No analytics or tracking scripts are deployed on this website.',
+          'Links to Google Calendar, social platforms, the product experiment, and other external websites open services with their own cookie and storage practices. Their policies apply on those sites.',
         ],
+        contact: false,
       },
       {
-        heading: '3. Third-party cookies',
+        heading: 'Browser controls',
         paragraphs: [
-          'Third-party services we may link to (such as GitHub, LinkedIn, or future form/booking providers) may set their own cookies on their own sites. We do not control those cookies.',
+          'You can manage cookies and website storage through your browser settings. Blocking JavaScript disables form submission; direct email remains available.',
         ],
+        contact: false,
       },
       {
-        heading: '4. Controlling cookies',
+        heading: 'Contact',
         paragraphs: [
-          'You can control and delete cookies in your browser settings, and you can block cookies entirely. Because this site does not use cookies, blocking them should not affect your ability to browse it.',
+          'Contact us if you have a question about website storage.',
         ],
-      },
-      {
-        heading: '5. Contact',
         contact: true,
-        paragraphs: [
-          'If you have questions about cookies on this site, email us at the address below.',
-        ],
       },
     ],
   },
   {
     slug: 'security',
     label: 'Security',
-    kicker: 'Legal',
-    heroText:
-      'How Kryzect approaches the confidentiality and protection of your information.',
-    lastUpdated: '2026-08-06',
+    kicker: 'Website information',
+    heroText: 'How we handle project enquiries and approach secure delivery.',
+    lastUpdated: '2026-10-26',
     sections: [
       {
-        heading: '1. Security mindset',
+        heading: 'This website',
         paragraphs: [
-          'We treat security as part of how we work, not an afterthought. The default is to ask "what could go wrong" before "how do we build it".',
+          'The public website is a static site. Enquiries use a hosted delivery provider; booking uses Google Calendar. Do not include credentials, confidential records, or production logs in the enquiry form.',
         ],
+        contact: false,
       },
       {
-        heading: '2. Secure development principles',
+        heading: 'Project information',
         paragraphs: [
-          'We follow security-in-depth principles in what we build: validate input, apply the principle of least privilege, keep dependencies reviewed, and handle secrets properly.',
+          'Information you share for a project is used to discuss and deliver the agreed work. Confidentiality, access, data handling, and any specialist security requirements are agreed for each engagement.',
         ],
+        contact: false,
       },
       {
-        heading: '3. Secret management',
+        heading: 'Engineering approach',
         paragraphs: [
-          'We do not put credentials, API keys, or secrets into client-side code or public repositories. Secrets are managed separately and we audit before publishing.',
+          'Security requirements are considered with the scope: input validation, access boundaries, dependency maintenance, deployment configuration, and handover responsibilities. Requirements vary by project; this page is not a certification or assurance of compliance for a particular system.',
         ],
+        contact: false,
       },
       {
-        heading: '4. Least privilege',
+        heading: 'Reporting a concern',
         paragraphs: [
-          'Access to systems and data is limited to what is genuinely needed, for the people and processes that need it.',
+          'Email a description and reproduction steps for suspected security issues. Please avoid sending sensitive data in the initial message and allow time for investigation before public disclosure.',
         ],
-      },
-      {
-        heading: '5. Dependency management',
-        paragraphs: [
-          'We keep dependencies updated and review known vulnerabilities before they reach production.',
-        ],
-      },
-      {
-        heading: '6. Secure deployment',
-        paragraphs: [
-          'Deployments go through our build pipeline, and we verify a build before it ships. This website is served over HTTPS.',
-        ],
-      },
-      {
-        heading: '7. Data handling principles',
-        paragraphs: [
-          'We treat the details you share with us — your business context, project ideas, source material, and any non-public information — as confidential.',
-          'We do not include confidential client or project details in public materials without your permission.',
-        ],
-      },
-      {
-        heading: '8. Reporting a vulnerability',
-        paragraphs: [
-          'If you believe you have found a security issue on this website or in something we have built, please tell us privately at the address below.',
-          'Include a description of the issue and, if possible, steps to reproduce. We will review reports and respond as quickly as we reasonably can. Please do not exploit issues or share them publicly before we have had a chance to fix them.',
-        ],
-      },
-      {
-        heading: '9. Contact',
         contact: true,
+      },
+    ],
+  },
+  {
+    slug: 'terms',
+    label: 'Terms',
+    kicker: 'Website information',
+    heroText: 'Terms for browsing the Kryzect website.',
+    lastUpdated: '2026-10-26',
+    sections: [
+      {
+        heading: 'Website information',
         paragraphs: [
-          'To report a vulnerability or ask a security question, email us at the address below.',
+          'This website describes Kryzect and its services. Descriptions are informational, not a binding offer or a guarantee of project results. Use of the website does not create a client engagement.',
         ],
+        contact: false,
+      },
+      {
+        heading: 'Content and acceptable use',
+        paragraphs: [
+          'Website content and brand assets belong to their respective owners. You may link to the site and refer to its content with attribution. Commercial reuse of Kryzect brand assets or content requires permission. Do not interfere with the website, misuse the enquiry service, or submit harmful content.',
+        ],
+        contact: false,
+      },
+      {
+        heading: 'External links',
+        paragraphs: [
+          'External websites, social profiles, scheduling tools, and product experiments have their own terms and availability. We do not control third-party services.',
+        ],
+        contact: false,
+      },
+      {
+        heading: 'Client engagements',
+        paragraphs: [
+          'Scope, fees, payment milestones, confidentiality, intellectual property, handover, support, and changes are defined in separate project agreements. Those agreements govern client work.',
+        ],
+        contact: false,
+      },
+      {
+        heading: 'Availability and changes',
+        paragraphs: [
+          'We may update website content and functionality. While we work to keep information accurate, the site is provided for general information and may contain errors or interruptions. Nothing in these terms excludes rights that cannot lawfully be excluded.',
+        ],
+        contact: false,
+      },
+      {
+        heading: 'Questions',
+        paragraphs: [
+          'Contact Kryzect if you have questions about website content or use.',
+        ],
+        contact: true,
       },
     ],
   },
   {
     slug: 'accessibility',
     label: 'Accessibility',
-    kicker: 'Legal',
+    kicker: 'Website information',
     heroText:
-      'Our commitment to making this website usable by everyone, regardless of ability.',
-    lastUpdated: '2026-08-06',
+      'We aim to make the website usable across different abilities and devices.',
+    lastUpdated: '2026-10-26',
     sections: [
       {
-        heading: '1. Commitment',
+        heading: 'Our approach',
         paragraphs: [
-          'We build for real people, and that includes people who use assistive technology. We aim to make this website accessible to as many people as possible.',
-          'Accessibility is treated as part of how we work, not an add-on. We target conformance with the Web Content Accessibility Guidelines (WCAG) 2.1 at the AA level as our working standard.',
+          'We use semantic pages, labeled form fields, keyboard-operable controls, visible focus, and responsive layouts. Our working target is WCAG 2.2 AA. This is a target, not a claim of independent certification.',
         ],
+        contact: false,
       },
       {
-        heading: '2. Keyboard accessibility',
+        heading: 'Motion and navigation',
         paragraphs: [
-          'The site is designed to be fully navigable by keyboard: all menus, links, buttons, and form fields are reachable and operable with the keyboard, with visible focus states.',
+          'Decorative motion is disabled when reduced motion is requested. The skip link moves to the main content. Mobile navigation can be closed with Escape.',
         ],
+        contact: false,
       },
       {
-        heading: '3. Readable contrast',
+        heading: 'Forms and external services',
         paragraphs: [
-          'Colour choices are made to keep text readable against the site background. Wherever possible, we use sufficient contrast for body text and interactive elements.',
+          'Form errors identify the field that needs attention. Email is available as an alternative. External booking and social services are controlled by their providers.',
         ],
+        contact: false,
       },
       {
-        heading: '4. Semantic HTML',
+        heading: 'Feedback',
         paragraphs: [
-          'Pages use semantic markup — landmarks, headings in a logical hierarchy, lists, and native elements — so screen readers and other assistive tools can interpret the structure correctly.',
+          'If something prevents you from using the site, email the page address, the issue, and any browser or assistive technology details you are comfortable sharing.',
         ],
-      },
-      {
-        heading: '5. Labels and alt text',
-        paragraphs: [
-          'Form fields have descriptive labels, and images that convey meaning carry appropriate alt text. Decorative elements are hidden from assistive technology where appropriate.',
-        ],
-      },
-      {
-        heading: '6. Reduced motion',
-        paragraphs: [
-          'We respect the prefers-reduced-motion setting, meaning decorative animation is skipped for visitors who ask for less motion.',
-        ],
-      },
-      {
-        heading: '7. Responsive design',
-        paragraphs: [
-          'The site is responsive and works across screen sizes, from small phones to wide desktop displays, without losing content or functionality.',
-        ],
-      },
-      {
-        heading: '8. Accessible forms',
-        paragraphs: [
-          'Forms use real labels, clear error messages that are announced to assistive technology, and status regions that inform users of progress.',
-        ],
-      },
-      {
-        heading: '9. Reporting a problem',
-        paragraphs: [
-          'If you encounter any accessibility issue on this site, please tell us. We genuinely want to know and will fix what we can.',
-        ],
-      },
-      {
-        heading: '10. Contact',
         contact: true,
-        paragraphs: [
-          'Send accessibility feedback to the address below.',
-        ],
       },
     ],
   },
 ]
-
-export function getUtilityPage(slug) {
-  return UTILITY_PAGES.find((page) => page.slug === slug)
-}
+export const getUtilityPage = (slug) =>
+  UTILITY_PAGES.find((page) => page.slug === slug) ?? null

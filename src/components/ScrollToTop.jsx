@@ -1,16 +1,27 @@
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigationType } from 'react-router-dom'
 
-// Resets scroll position to the top on every route change.
-// Avoids landing mid-page when navigating between long service pages.
-function ScrollToTop() {
-  const { pathname } = useLocation()
-
+export default function ScrollToTop() {
+  const { pathname, hash, key } = useLocation()
+  const navigation = useNavigationType()
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
-
+    const frame = requestAnimationFrame(() => {
+      let target
+      try {
+        target =
+          hash && document.getElementById(decodeURIComponent(hash.slice(1)))
+      } catch {
+        target = null
+      }
+      if (target) {
+        target.scrollIntoView({ block: 'start', behavior: 'instant' })
+        target.focus({ preventScroll: true })
+      } else if (navigation !== 'POP') {
+        window.scrollTo({ top: 0, behavior: 'instant' })
+        document.querySelector('#main-content')?.focus({ preventScroll: true })
+      }
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, hash, key, navigation])
   return null
 }
-
-export default ScrollToTop

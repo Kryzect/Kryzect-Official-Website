@@ -9,6 +9,7 @@
   /* ---- Color: Background / Surfaces ---- */
   --color-background: #0a1120; /* page background */
   --color-surface: #111a2e; /* card / panel / logo backdrop */
+  --color-surface-hover: #1d2b46; /* visible card hover / focus surface */
 
   /* ---- Color: Text ---- */
   --color-text: #f5f7ff; /* primary text */

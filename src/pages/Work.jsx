@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom'
 import Button from '../components/Button.jsx'
 import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
-import { PROJECTS, PROJECT_CATEGORIES, getProjectCategory } from '../data/projects.js'
-
-import './company.css'
-import './work.css'
+import {
+  PROJECTS,
+  PROJECT_CATEGORIES,
+  getProjectCategory,
+} from '../data/projects.js'
 
 const MIN_PROJECTS_FOR_FILTERS = 3
 
@@ -40,8 +41,9 @@ function Work() {
           <span className="page-hero__kicker">Work</span>
           <h1 className="page-hero__title">Work built with purpose.</h1>
           <p className="page-hero__text">
-            Explore selected projects, products, experiments, and case studies. Where possible, see
-            the live product, source code, and the thinking behind the build.
+            Explore selected projects, products, experiments, and case studies.
+            Where possible, see the live product, source code, and the thinking
+            behind the build.
           </p>
         </div>
       </section>
@@ -50,9 +52,14 @@ function Work() {
       {showFilters && (
         <section className="page-section">
           <div className="page-container">
-            <div className="work-filters" role="group" aria-label="Filter projects">
+            <div
+              className="work-filters"
+              role="group"
+              aria-label="Filter projects"
+            >
               <button
                 type="button"
+                aria-pressed={active === 'All'}
                 className={`work-filter${active === 'All' ? ' work-filter--active' : ''}`}
                 onClick={() => setActive('All')}
               >
@@ -63,6 +70,7 @@ function Work() {
                   type="button"
                   className={`work-filter${active === category ? ' work-filter--active' : ''}`}
                   key={category}
+                  aria-pressed={active === category}
                   onClick={() => setActive(category)}
                 >
                   {category}
@@ -90,11 +98,15 @@ function Work() {
                       src={project.image}
                       alt={project.alt ?? `${project.name} image`}
                       loading="lazy"
+                      width={project.imageWidth}
+                      height={project.imageHeight}
                     />
                   ) : null}
                   <p className="project-card__desc">{project.description}</p>
                   {project.status ? (
-                    <span className="project-card__status">{project.status}</span>
+                    <span className="project-card__status">
+                      {project.status}
+                    </span>
                   ) : null}
                   <div className="project-card__cta">
                     <Button to={`/work/${project.slug}`} variant="ghost">
@@ -107,8 +119,8 @@ function Work() {
           ) : (
             <div className="work-empty">
               <p className="work-empty__text">
-                Selected work is being prepared and will appear here as it becomes available. We only
-                show projects we genuinely built — we do not invent case studies.
+                Selected work is being prepared and will appear here as it
+                becomes available.
               </p>
               <div className="section-cta">
                 <Button to="/contact">Start a Project</Button>

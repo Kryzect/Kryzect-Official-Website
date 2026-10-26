@@ -32,7 +32,12 @@ function SocialLinks({ className = '', row = false }) {
     <ul className={classes.join(' ')}>
       {SOCIAL_LINKS.map(({ label, href, icon }) => (
         <li key={label}>
-          <a href={href} className="social-links__item" target="_blank" rel="noreferrer">
+          <a
+            href={href}
+            className="social-links__item"
+            target="_blank"
+            rel="noreferrer"
+          >
             <svg
               className="social-links__icon"
               viewBox="0 0 24 24"

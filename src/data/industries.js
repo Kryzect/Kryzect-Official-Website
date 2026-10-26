@@ -44,8 +44,7 @@ export const INDUSTRIES = [
   {
     slug: 'technology',
     name: 'Technology',
-    description:
-      'Software businesses and teams building digital products.',
+    description: 'Software businesses and teams building digital products.',
   },
   {
     slug: 'operations',

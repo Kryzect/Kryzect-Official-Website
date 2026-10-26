@@ -1,125 +1,49 @@
+import PageIntro from '../components/PageIntro.jsx'
 import Button from '../components/Button.jsx'
-import Seo from '../components/Seo.jsx'
-import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import { BOOKING_URL, CONTACT_EMAIL } from '../config.js'
-
-import './company.css'
-import './contact.css'
-
-// Book a Call (Blueprint V2 §67–68). Booking integrates a Google Calendar
-// Appointment Schedule + Google Meet. Until BOOKING_URL is supplied in
-// src/config.js, an honest "not configured" fallback is shown (never a fake link).
-function BookACall() {
+export default function BookACall() {
   return (
     <>
-      <Seo
-        title="Book a Call"
-        description="Book a free 30-minute discovery conversation with Kryzect to understand your objective, current situation, and a useful next step."
+      <PageIntro
         path="/book-a-call"
+        label="Book a Call"
+        title="Start with a conversation."
+        description="A free 30-minute discovery call to discuss your goals, current workflow, and possible next steps. There is no commitment to start a project."
       />
-      <Breadcrumbs
-        items={[
-          { label: 'Home', to: '/' },
-          { label: 'Book a Call', to: '/book-a-call' },
-        ]}
-      />
-
-      {/* ============ HERO ============ */}
-      <section className="page-hero">
-        <div className="page-container">
-          <span className="page-hero__kicker">Book a Call</span>
-          <h1 className="page-hero__title">Let&apos;s talk about what you&apos;re building.</h1>
-          <p className="page-hero__text">
-            A 30-minute discovery conversation to understand your objective, current situation, and
-            what a useful next step could look like.
-          </p>
-          <div className="page-hero__actions">
-            {BOOKING_URL ? (
-              <Button href={BOOKING_URL} target="_blank" rel="noreferrer">
-                Book Your Call →
-              </Button>
-            ) : (
-              <Button href={`mailto:${CONTACT_EMAIL}`}>Email to Schedule →</Button>
-            )}
-            <Button to="/contact" variant="ghost">
-              Start a Project Instead
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ WHAT THE CALL IS FOR ============ */}
-      <section className="page-section" aria-labelledby="for-heading">
-        <div className="page-container">
-          <div className="page-section__heading">
-            <span className="page-section__kicker">On the call</span>
-            <h2 className="page-section__title" id="for-heading">
-              What the call is for.
-            </h2>
-          </div>
-          <ul className="item-list">
-            <li className="item-card">understanding the objective</li>
-            <li className="item-card">discussing the current situation</li>
-            <li className="item-card">identifying the problem</li>
-            <li className="item-card">discussing possible approaches</li>
-            <li className="item-card">determining whether Kryzect is a fit</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* ============ WHAT IT IS NOT ============ */}
-      <section className="page-section" aria-labelledby="not-heading">
-        <div className="page-container">
-          <div className="page-section__heading">
-            <span className="page-section__kicker">No pressure</span>
-            <h2 className="page-section__title" id="not-heading">
-              What it is not.
-            </h2>
-          </div>
-          <ul className="item-list">
-            <li className="item-card">a forced sales call</li>
-            <li className="item-card">a requirement to have a technical specification</li>
-            <li className="item-card">a commitment to hire Kryzect</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* ============ BOOKING DETAILS ============ */}
-      <section className="page-section page-section--final" aria-labelledby="booking-heading">
-        <div className="page-container">
-          <div className="page-section__heading">
-            <span className="page-section__kicker">Booking</span>
-            <h2 className="page-section__title" id="booking-heading">
-              Book your discovery call.
-            </h2>
+      <section className="page-section">
+        <div className="page-container evidence-layout">
+          <div>
+            <h2>What we will discuss</h2>
+            <ul className="plain-list">
+              <li>What you are trying to achieve and who it is for.</li>
+              <li>Your current tools, process, and constraints.</li>
+              <li>Whether Kryzect can help and what to do next.</li>
+            </ul>
+            <p className="section-note">
+              An idea or short outline is enough. No presentation or technical
+              brief is needed.
+            </p>
           </div>
           <div className="booking-card">
-            <h3 className="booking-card__title">30-minute Kryzect Discovery Call</h3>
-            <p className="booking-card__text">
-              A 30-minute conversation to understand what you&apos;re trying to achieve, what
-              you&apos;re currently dealing with, and whether Kryzect is the right fit.
+            <h2>30-minute discovery call</h2>
+            <p>
+              Choose an available time on Google Calendar. The booking page
+              handles your time zone and adds Google Meet details after booking.
             </p>
-            {BOOKING_URL ? (
-              <div className="booking-cta">
+            <div className="section-cta">
+              {BOOKING_URL && (
                 <Button href={BOOKING_URL} target="_blank" rel="noreferrer">
-                  Book Your Call →
+                  Choose a Time ↗
                 </Button>
-              </div>
-            ) : (
-              <div className="booking-cta">
-                <p className="contact-status__note">
-                  Scheduling isn&apos;t linked up yet, so no booking link is shown here (we don&apos;t
-                  fake one). To get on our calendar in the meantime, email us and we&apos;ll find a
-                  time.
-                </p>
-                <Button href={`mailto:${CONTACT_EMAIL}`}>Email us to Schedule →</Button>
-              </div>
-            )}
+              )}
+            </div>
+            <p className="section-note">
+              Need another way to arrange it?{' '}
+              <a href={`mailto:${CONTACT_EMAIL}`}>Email {CONTACT_EMAIL}</a>.
+            </p>
           </div>
         </div>
       </section>
     </>
   )
 }
-
-export default BookACall
