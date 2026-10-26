@@ -9,6 +9,7 @@ import ErrorBoundary from './ErrorBoundary.jsx'
 import RouteFallback from './RouteFallback.jsx'
 import ScrollToTop from './ScrollToTop.jsx'
 import BrandIntro from './BrandIntro.jsx'
+import AssistantLauncher from './AssistantLauncher.jsx'
 
 // Persistent shell; only route content suspends or enters error recovery.
 // A skip link jumps keyboard users past the header to the main content.
@@ -33,6 +34,7 @@ function Layout() {
         </ErrorBoundary>
       </main>
       <Footer />
+      <AssistantLauncher />
       <BrandIntro replayRef={replayIntro} />
     </div>
   )

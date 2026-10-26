@@ -87,6 +87,8 @@ The production preview runs at **http://127.0.0.1:4173**. It serves the generate
 
 ## Scripts
 
+The information assistant uses a server-only Gemini primary and free OpenRouter fallback. Add keys to the ignored `.env` using [`.env.example`](.env.example). See the [implementation plan](docs/ASSISTANT_IMPLEMENTATION_PLAN.md) and [assistant operations guide](docs/ASSISTANT_OPERATIONS.md) for source boundaries, free-tier eligibility, shared production rate limits, and setup. The static website remains available when chat providers are unavailable.
+
 | Command                | Purpose                                                                  |
 | ---------------------- | ------------------------------------------------------------------------ |
 | `npm run dev`          | Start the Vite development server                                        |
@@ -98,6 +100,8 @@ The production preview runs at **http://127.0.0.1:4173**. It serves the generate
 | `npm run check`        | Run lint, unit tests, and the production build                           |
 | `npm run format`       | Format source, scripts, tests, and configuration                         |
 | `npm run format:check` | Check formatting without modifying files                                 |
+| `npm run test:assistant:browser` | Check assistant layouts, accessibility, and mocked API interactions |
+| `npm run assistant:eval` | Run an explicit live semantic smoke evaluation using provider quota |
 
 For browser checks, first build the site and install Chromium:
 
@@ -113,9 +117,11 @@ Alternatively, set `CHROME_PATH` to an existing Chrome executable. CI installs C
 
 ```text
 .github/             # Quality workflow and dependency updates
+api/                 # Vercel assistant function entry
 docs/                # Operations and publishing guides
 public/              # Original logo, social share image, and font licenses
 scripts/             # Build, static rendering, preview, generation, and checks
+server/              # Server-only assistant knowledge, policy, providers, and limits
 src/
 ├── components/      # Navigation, brand animation, forms, metadata, and shared UI
 ├── data/            # Services, products, content, and publication policy

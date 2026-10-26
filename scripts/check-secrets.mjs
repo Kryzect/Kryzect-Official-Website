@@ -14,6 +14,8 @@ const signatures = [
   ['npm-token', /\bnpm_[A-Za-z0-9]{30,}\b/],
   ['slack-token', /\bxox[baprs]-[A-Za-z0-9-]{20,}\b/],
   ['stripe-secret', /\bsk_live_[A-Za-z0-9]{20,}\b/],
+  ['google-api-key', /\bAIza[0-9A-Za-z_-]{35}\b/],
+  ['openrouter-api-key', /\bsk-or-v1-[A-Za-z0-9_-]{32,}\b/],
 ]
 const findings = []
 function scan(text, location) {
@@ -31,6 +33,11 @@ const ignored = new Set([
 async function walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     if (ignored.has(entry.name)) continue
+    if (
+      (entry.name === '.env' || entry.name.startsWith('.env.')) &&
+      entry.name !== '.env.example'
+    )
+      continue
     const file = join(dir, entry.name)
     if (entry.isDirectory()) await walk(file)
     else if (!/\.(png|woff2?|jpg|jpeg|ico)$/i.test(file))
@@ -38,6 +45,17 @@ async function walk(dir) {
   }
 }
 await walk('.')
+const tracked = execFileSync('git', ['ls-files'], { encoding: 'utf8' }).split(
+  '\n',
+)
+for (const name of tracked) {
+  if (
+    /(^|\/)\.env(?:\..*)?$/.test(name) &&
+    !name.endsWith('/.env.example') &&
+    name !== '.env.example'
+  )
+    findings.push({ type: 'tracked-private-environment', location: name })
+}
 const history = execFileSync(
   'git',
   ['log', '--all', '--format=', '--no-ext-diff', '--patch'],

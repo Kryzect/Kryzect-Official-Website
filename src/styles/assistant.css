@@ -1,0 +1,181 @@
+.assistant-launcher {
+  position: fixed;
+  right: max(1.25rem, env(safe-area-inset-right));
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  z-index: 220;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 1.1rem;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.28);
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+.assistant-launcher svg {
+  width: 2rem;
+  height: 2rem;
+}
+.assistant-launcher:hover {
+  background: var(--color-surface-hover);
+}
+.assistant-launcher:disabled {
+  display: none;
+}
+.site:has(.brand-intro[open]) .assistant-launcher {
+  visibility: hidden;
+}
+.assistant-dialog {
+  position: fixed;
+  inset: auto max(1rem, env(safe-area-inset-right))
+    calc(
+      max(1rem, env(safe-area-inset-bottom)) +
+        var(--assistant-keyboard-inset, 0px)
+    )
+    auto;
+  width: min(27rem, calc(100vw - 2rem));
+  height: min(44rem, calc(var(--assistant-viewport-height, 100dvh) - 2rem));
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #344360;
+  border-radius: var(--radius-lg);
+  background: var(--color-background);
+  color: var(--color-text);
+  box-shadow: 0 18px 60px rgb(0 0 0 / 0.5);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.assistant-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.assistant-dialog,
+.assistant-dialog * {
+  scrollbar-width: thin;
+  scrollbar-color: #4c608a #101b2e;
+}
+.assistant-dialog {
+  color-scheme: dark;
+}
+.assistant-dialog::-webkit-scrollbar,
+.assistant-dialog *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.assistant-dialog::-webkit-scrollbar-track,
+.assistant-dialog *::-webkit-scrollbar-track {
+  background: #101b2e;
+}
+.assistant-dialog::-webkit-scrollbar-thumb,
+.assistant-dialog *::-webkit-scrollbar-thumb {
+  background: #4c608a;
+  border: 2px solid #101b2e;
+  border-radius: 8px;
+}
+.assistant-dialog::-webkit-scrollbar-thumb:hover,
+.assistant-dialog *::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+@media (forced-colors: active) {
+  .assistant-dialog,
+  .assistant-dialog * {
+    scrollbar-color: auto;
+  }
+}
+.assistant-dialog::backdrop {
+  background: rgb(0 0 0 / 0.2);
+}
+.assistant-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #26334c;
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+.assistant-header__icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+.assistant-header h2 {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.assistant-header p {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  margin-top: 0.15rem;
+}
+.assistant-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--color-accent);
+  margin-left: 0.25rem;
+  vertical-align: middle;
+}
+.assistant-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+.assistant-close:hover {
+  background: var(--color-surface-hover);
+}
+.assistant-close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.assistant-loading {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  flex: 1;
+  padding: 1.5rem;
+}
+@media (max-width: 30rem) {
+  .assistant-dialog {
+    width: calc(100vw - 1rem);
+    right: 0.5rem;
+    bottom: calc(
+      max(0.5rem, env(safe-area-inset-bottom)) +
+        var(--assistant-keyboard-inset, 0px)
+    );
+    height: min(44rem, calc(var(--assistant-viewport-height, 100dvh) - 1rem));
+  }
+  .assistant-header {
+    gap: 0.5rem;
+    padding-inline: 0.75rem;
+  }
+  .assistant-header h2 {
+    font-size: 0.9375rem;
+  }
+}
+@media (min-width: 48rem) {
+  .assistant-dialog {
+    width: min(32rem, calc(100vw - 2rem));
+    height: min(48rem, calc(var(--assistant-viewport-height, 100dvh) - 2rem));
+  }
+  .assistant-header {
+    padding-block: 0.45rem;
+  }
+}

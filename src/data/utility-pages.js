@@ -30,6 +30,16 @@ export const UTILITY_PAGES = [
         contact: false,
       },
       {
+        heading: 'AI assistant',
+        paragraphs: [
+          'The AI assistant is intended for business enquiries from adults aged 18 or older. Sending a message confirms that you meet that age requirement. The website pages and direct contact options remain available without AI chat.',
+          'When AI is enabled, your message and a short recent conversation are sent through our server to Google Gemini or, if needed, OpenRouter and its selected model provider to produce a reply. When AI is not configured or is disabled, saved-source answers are generated in your browser without sending the question to our chat API. A saved-source answer after an attempted AI reply does not mean the message was never sent. Please do not share passwords, confidential records, or sensitive personal information. Provider processing, retention, and any use for service improvement depend on their applicable terms and account settings; we do not promise zero provider retention.',
+          'Chat history stays in the current page memory and is cleared by Clear chat or a page refresh. We do not store chat transcripts in an application database. Hosting and AI providers may keep their own technical records. We may record operational metadata such as response times, provider status, token usage, and error categories without message contents.',
+          'For abuse prevention and usage limits, an expiring store may hold pseudonymous request counters and short-lived provider availability flags. It does not store your message text. You can use direct contact or booking instead of the assistant. AI replies may be mistaken; project scope, pricing, and commitments are confirmed by a person.',
+        ],
+        contact: false,
+      },
+      {
         heading: 'Hosting and fonts',
         paragraphs: [
           'This website is hosted on Vercel. Fonts are served with the website; browsing does not request fonts from Google Fonts. We do not deploy visitor analytics or advertising trackers in the site code. Providers may maintain technical or security logs under their own policies.',
@@ -39,7 +49,7 @@ export const UTILITY_PAGES = [
       {
         heading: 'Service providers',
         paragraphs: [
-          'Vercel, Web3Forms, and Google provide hosting, form delivery, email, scheduling, and meeting services. They may process information in countries different from your own. Their own privacy terms also apply when you use their services.',
+          'Vercel, Web3Forms, and Google provide hosting, form delivery, email, scheduling, meeting, and AI services. OpenRouter and its selected model providers may process assistant messages during fallback; Upstash provides expiring abuse-prevention counters when configured. Providers may process information in countries different from your own. Their own privacy terms also apply when you use their services.',
         ],
         contact: false,
       },
@@ -71,6 +81,7 @@ export const UTILITY_PAGES = [
         paragraphs: [
           'The website code does not set cookies or store enquiry messages in browser storage. The form holds your input in memory while the page is open.',
           'A session-storage flag remembers whether the homepage brand intro has been shown in the current tab session. It contains no enquiry information and is not used for analytics or advertising. If session storage is unavailable, the automatic intro is skipped.',
+          'The assistant keeps the current conversation and a random session identifier in page memory, without persistent browser storage or an assistant cookie. Clearing the chat removes its messages; refreshing resets page memory. Expiring server-side counters help prevent abuse.',
         ],
         contact: false,
       },

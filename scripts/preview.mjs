@@ -3,9 +3,13 @@ import { readFile, stat } from 'node:fs/promises'
 import { resolve, extname, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { brotliCompressSync } from 'node:zlib'
+import { createAssistantHandler } from '../server/assistant/handler.mjs'
+import { loadLocalEnvironment } from '../server/local-env.mjs'
 
 // Local production preview: static clean URLs and genuine missing-file 404s.
-export async function startPreview(port = 4173) {
+export async function startPreview(port = 4173, { assistantOptions } = {}) {
+  loadLocalEnvironment()
+  const assistant = createAssistantHandler(assistantOptions)
   const root = resolve('dist')
   const config = JSON.parse(await readFile('vercel.json', 'utf8'))
   const types = {
@@ -20,6 +24,12 @@ export async function startPreview(port = 4173) {
   }
   const server = createServer(async (request, response) => {
     try {
+      if (
+        new URL(request.url, 'http://localhost').pathname === '/api/assistant'
+      ) {
+        await assistant(request, response)
+        return
+      }
       if (!['GET', 'HEAD'].includes(request.method)) {
         response.writeHead(405, { Allow: 'GET, HEAD' })
         response.end()
