@@ -178,6 +178,10 @@ try {
   )
   await page.locator('.site-mobile-menu__cta').scrollIntoViewIfNeeded()
   await page.keyboard.press('Escape')
+  await page.waitForFunction(
+    () =>
+      document.activeElement === document.querySelector('.site-header__toggle'),
+  )
   assert.equal(
     await page
       .getByRole('button', { name: 'Open menu' })
@@ -185,7 +189,12 @@ try {
     true,
   )
   await page.goto(base + '/contact#form')
-  await page.waitForTimeout(250)
+  await page.waitForFunction(() => {
+    const target = document.querySelector('#form')
+    if (!target) return false
+    const top = target.getBoundingClientRect().top
+    return top >= 60 && top < 200
+  })
   assert.ok(
     await page
       .locator('#form')
@@ -196,6 +205,11 @@ try {
       ),
   )
   await page.getByRole('button', { name: 'Send Message' }).click()
+  // Validation focuses the first invalid field on the next animation frame.
+  // A completed click does not guarantee that frame has run on a busy runner.
+  await page.waitForFunction(
+    () => document.activeElement === document.querySelector('#name'),
+  )
   assert.equal(
     await page.locator('#name').evaluate((el) => el === document.activeElement),
     true,
