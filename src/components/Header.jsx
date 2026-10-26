@@ -1,126 +1,98 @@
 import { useEffect, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-
 import Logo from './Logo.jsx'
 import Button from './Button.jsx'
 import { PRIMARY_NAV, HEADER_CTA } from '../data/navigation.js'
 
-function Header() {
+export default function Header() {
   const [open, setOpen] = useState(false)
-  const toggleRef = useRef(null)
-  const menuRef = useRef(null)
+  const toggle = useRef(null)
   const location = useLocation()
-
-  // Close the mobile menu on navigation.
   useEffect(() => {
     setOpen(false)
   }, [location])
-
-  // Close the mobile menu with Escape; trap Tab inside it while open.
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 70rem)')
+    const close = () => {
+      if (media.matches) setOpen(false)
+    }
+    media.addEventListener('change', close)
+    return () => media.removeEventListener('change', close)
+  }, [])
   useEffect(() => {
     if (!open) return undefined
-
-    const firstFocus = () => {
-      menuRef.current?.querySelector('a, button')?.focus()
-    }
-    firstFocus()
-
-    const onKey = (e) => {
-      if (e.key === 'Escape') {
+    const onKey = (event) => {
+      if (event.key === 'Escape') {
         setOpen(false)
-        toggleRef.current?.focus()
-        return
-      }
-      if (e.key === 'Tab') {
-        const nodes = menuRef.current?.querySelectorAll('a, button, [tabindex]')
-        if (!nodes || nodes.length === 0) return
-        const first = nodes[0]
-        const last = nodes[nodes.length - 1]
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault()
-          last.focus()
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault()
-          first.focus()
-        }
+        toggle.current?.focus()
       }
     }
-    window.addEventListener('keydown', onKey)
-
-    return () => window.removeEventListener('keydown', onKey)
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
   }, [open])
-
   const navClass = ({ isActive }) =>
     `nav-link${isActive ? ' nav-link--active' : ''}`
-
   return (
-    <header className="site-header">
+    <header
+      className="site-header"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false)
+      }}
+    >
       <div className="site-header__inner">
         <Link to="/" className="site-header__brand" aria-label="Kryzect home">
-          <span className="site-header__logo" aria-hidden="true">
+          <span className="site-header__logo">
             <Logo />
           </span>
           <span className="site-header__wordmark">Kryzect</span>
         </Link>
-
         <nav className="site-nav site-nav--desktop" aria-label="Primary">
           <ul className="site-nav__list">
             {PRIMARY_NAV.map(({ label, to }) => (
               <li key={to}>
-                <NavLink to={to} className={navClass} end={to === '/'}>
+                <NavLink to={to} className={navClass}>
                   {label}
                 </NavLink>
               </li>
             ))}
           </ul>
         </nav>
-
         <Button to={HEADER_CTA.to} className="site-header__cta">
           {HEADER_CTA.label}
         </Button>
-
         <button
           type="button"
-          ref={toggleRef}
+          ref={toggle}
           className="site-header__toggle"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="site-mobile-menu"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen((value) => !value)}
         >
-          <span className="site-header__toggle-bar" aria-hidden="true" />
-          <span className="site-header__toggle-bar" aria-hidden="true" />
-          <span className="site-header__toggle-bar" aria-hidden="true" />
+          <span className="site-header__toggle-bar" />
+          <span className="site-header__toggle-bar" />
+          <span className="site-header__toggle-bar" />
         </button>
       </div>
-
-      {createPortal(
-        <div
-          id="site-mobile-menu"
-          ref={menuRef}
-          className={`site-mobile-menu${open ? ' is-open' : ''}`}
-          hidden={!open}
-        >
-          <nav className="site-mobile-menu__nav" aria-label="Mobile primary">
-            <ul className="site-mobile-menu__list">
-              {PRIMARY_NAV.map(({ label, to }) => (
-                <li key={to}>
-                  <NavLink to={to} className={navClass} end={to === '/'}>
-                    {label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <Button to={HEADER_CTA.to} className="site-mobile-menu__cta">
-            {HEADER_CTA.label}
-          </Button>
-        </div>,
-        document.body,
-      )}
+      <nav
+        id="site-mobile-menu"
+        className={`site-mobile-menu${open ? ' is-open' : ''}`}
+        hidden={!open}
+        aria-label="Mobile primary"
+      >
+        <ul className="site-mobile-menu__list">
+          {PRIMARY_NAV.map(({ label, to }) => (
+            <li key={to}>
+              <NavLink to={to} className={navClass}>
+                {label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+        <Button to={HEADER_CTA.to} className="site-mobile-menu__cta">
+          {HEADER_CTA.label}
+        </Button>
+      </nav>
     </header>
   )
 }
-
-export default Header

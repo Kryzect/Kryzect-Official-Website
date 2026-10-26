@@ -3,10 +3,6 @@ import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import { INDUSTRIES } from '../data/industries.js'
 
-import './company.css'
-import './industries.css'
-
-// Industries (Blueprint V2 §47). Overview of potential categories only.
 // We do NOT claim specialization in an industry merely because it is listed.
 // Strong industry claims are only made once genuine experience exists.
 
@@ -31,9 +27,9 @@ function Industries() {
           <span className="page-hero__kicker">Industries</span>
           <h1 className="page-hero__title">The problems we work on.</h1>
           <p className="page-hero__text">
-            Every industry is ultimately a set of problems solved by good
-            engineering. Listing a category is not a promise of specialization —
-            it is a statement of the kinds of work we take on.
+            We work with businesses and founders across different sectors. The
+            starting point is your workflow, the people involved, and any
+            industry-specific requirements.
           </p>
         </div>
       </section>
@@ -48,15 +44,6 @@ function Industries() {
                 <p className="industry-card__text">{industry.description}</p>
               </article>
             ))}
-          </div>
-
-          <div className="industry-note">
-            <h2 className="industry-note__title">A word on specialisation.</h2>
-            <p className="industry-note__text">
-              These categories describe where our skills can be applied — not a claim that we are
-              specialists in each. We only describe strong industry expertise where genuine project
-              experience exists to back it up.
-            </p>
           </div>
 
           <div className="section-cta">

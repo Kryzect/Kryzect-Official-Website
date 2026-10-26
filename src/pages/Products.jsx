@@ -5,9 +5,6 @@ import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import { PRODUCTS } from '../data/products.js'
 
-import './company.css'
-import './products.css'
-
 function Products() {
   return (
     <>
@@ -27,10 +24,12 @@ function Products() {
       <section className="page-hero">
         <div className="page-container">
           <span className="page-hero__kicker">Products</span>
-          <h1 className="page-hero__title">Products built from problems worth solving.</h1>
+          <h1 className="page-hero__title">
+            Products built from problems worth solving.
+          </h1>
           <p className="page-hero__text">
-            Kryzect does not only build for others. We also explore problems worth solving ourselves
-            and turn those ideas into products.
+            Kryzect does not only build for others. We also explore problems
+            worth solving ourselves and turn those ideas into products.
           </p>
         </div>
       </section>
@@ -44,9 +43,13 @@ function Products() {
                 <article className="product-card" key={product.slug}>
                   <div className="product-card__top">
                     <h2 className="product-card__name">
-                      <Link to={`/products/${product.slug}`}>{product.name}</Link>
+                      <Link to={`/products/${product.slug}`}>
+                        {product.name}
+                      </Link>
                     </h2>
-                    <span className="product-card__status">{product.status}</span>
+                    <span className="product-card__status">
+                      {product.status}
+                    </span>
                   </div>
                   <p className="product-card__tagline">{product.tagline}</p>
                   <h3 className="product-card__label">Problem</h3>
@@ -61,20 +64,10 @@ function Products() {
             </div>
           ) : (
             <p className="home-page__empty">
-              Products are being built and will appear here as they move into development.
+              Products are being built and will appear here as they move into
+              development.
             </p>
           )}
-
-          {/* Future products architecture */}
-          <div className="future-products">
-            <span className="future-products__kicker">Coming next</span>
-            <h2 className="future-products__title">More products worth solving.</h2>
-            <p className="future-products__text">
-              We explore problems we believe are worth taking on ourselves. Future products will be
-              listed here, with the same honest presentation — only real capabilities, never
-              fabrication — as they move into active development.
-            </p>
-          </div>
         </div>
       </section>
     </>

@@ -3,10 +3,8 @@ import { Link, useParams } from 'react-router-dom'
 import Button from '../components/Button.jsx'
 import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
+import { PROJECTS } from '../data/projects.js'
 import { getService } from '../data/services-catalog.js'
-
-import './company.css'
-import './services.css'
 
 function SectionHeading({ kicker, title }) {
   return (
@@ -75,9 +73,11 @@ function ServicePage() {
                 {link.label}
               </Button>
             ))}
-            <Button to="/work" variant="ghost">
-              See Our Work →
-            </Button>
+            {PROJECTS.length > 0 && (
+              <Button to="/work" variant="ghost">
+                See Our Work →
+              </Button>
+            )}
           </div>
         </div>
       </section>
@@ -85,7 +85,10 @@ function ServicePage() {
       {/* ============ OVERVIEW ============ */}
       <section className="page-section">
         <div className="page-container">
-          <SectionHeading kicker="Overview" title="What this service involves." />
+          <SectionHeading
+            kicker="Overview"
+            title="What this service involves."
+          />
           <div className="story">
             {service.fullDescription.map((paragraph) => (
               <p className="story__para" key={paragraph}>
@@ -129,7 +132,9 @@ function ServicePage() {
         <section className="page-section">
           <div className="page-container">
             <div className="service-note">
-              <span className="service-note__kicker">{service.note.kicker}</span>
+              <span className="service-note__kicker">
+                {service.note.kicker}
+              </span>
               <h3 className="service-note__title">{service.note.title}</h3>
               <p className="service-note__body">{service.note.body}</p>
             </div>
@@ -158,13 +163,21 @@ function ServicePage() {
       {related.length > 0 && (
         <section className="page-section">
           <div className="page-container">
-            <SectionHeading kicker="Related" title="Explore related services." />
+            <SectionHeading
+              kicker="Related"
+              title="Explore related services."
+            />
             <ul className="related-grid">
               {related.map((item) => (
                 <li className="related-card" key={item.slug}>
-                  <Link className="related-card__link" to={`/services/${item.slug}`}>
+                  <Link
+                    className="related-card__link"
+                    to={`/services/${item.slug}`}
+                  >
                     <span className="related-card__title">{item.title}</span>
-                    <span className="related-card__desc">{item.shortDescription}</span>
+                    <span className="related-card__desc">
+                      {item.shortDescription}
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -179,7 +192,8 @@ function ServicePage() {
           <div className="final-cta">
             <h2 className="final-cta__title">Have a problem in mind?</h2>
             <p className="final-cta__text">
-              Start with the outcome. We&apos;ll work out the technology together.
+              Start with the outcome. We&apos;ll work out the technology
+              together.
             </p>
             <div className="final-cta__actions">
               <Button to="/contact">Start a Project</Button>

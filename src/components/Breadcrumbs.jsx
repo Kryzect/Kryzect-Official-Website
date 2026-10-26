@@ -1,60 +1,34 @@
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-
-import { SITE_URL } from '../data/site.js'
-
-// Breadcrumb nav with JSON-LD BreadcrumbList for SEO.
-// `items` = [{ label, to }] in order; the last item is current page (no link).
-
-function Breadcrumbs({ items }) {
-  const scriptRef = useRef(null)
-
-  useEffect(() => {
-    if (typeof document === 'undefined') return
-    if (!scriptRef.current) {
-      scriptRef.current = document.createElement('script')
-      scriptRef.current.type = 'application/ld+json'
-      document.head.appendChild(scriptRef.current)
-    }
-    scriptRef.current.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: items.map((item, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: item.label,
-        item: `${SITE_URL}${item.to}`,
-      })),
-    })
-  }, [items])
-
-  useEffect(() => {
-    return () => {
-      if (scriptRef.current) {
-        scriptRef.current.remove()
-        scriptRef.current = null
-      }
-    }
-  }, [])
-
+import { SITE_URL } from '../config.js'
+import JsonLd from './JsonLd.jsx'
+export default function Breadcrumbs({ items }) {
   return (
-    <nav className="breadcrumbs" aria-label="Breadcrumb">
-      <ol className="breadcrumbs__list">
-        {items.map((item, index) => {
-          const isLast = index === items.length - 1
-          return (
-            <li className="breadcrumbs__item" key={`${item.to}-${index}`}>
-              {isLast ? (
+    <>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: items.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.label,
+            item: new URL(item.to, SITE_URL).href,
+          })),
+        }}
+      />
+      <nav className="breadcrumbs" aria-label="Breadcrumb">
+        <ol className="breadcrumbs__list">
+          {items.map((item, index) => (
+            <li className="breadcrumbs__item" key={item.to}>
+              {index === items.length - 1 ? (
                 <span aria-current="page">{item.label}</span>
               ) : (
                 <Link to={item.to}>{item.label}</Link>
               )}
             </li>
-          )
-        })}
-      </ol>
-    </nav>
+          ))}
+        </ol>
+      </nav>
+    </>
   )
 }
-
-export default Breadcrumbs

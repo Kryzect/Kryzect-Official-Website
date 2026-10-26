@@ -5,11 +5,7 @@ import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import { getIndustry } from '../data/industries.js'
 
-import './company.css'
-import './industries.css'
-
 // Reusable industry detail renderer (/industries/:slug).
-// Per Blueprint V2 §47, we do NOT fabricate industry expertise. A detail page
 // shows the honest, neutral description of that category and is a placeholder
 // for genuine, future industry content once real experience exists.
 
@@ -70,17 +66,13 @@ function IndustryPage() {
           <div className="industry-note">
             <h2 className="industry-note__title">Work in this area.</h2>
             <p className="industry-note__text">
-              This page is a placeholder for genuine {industry.name.toLowerCase()} work. It is only
-              filled in when real project experience exists — we do not invent clients, case
-              studies, or metrics.
+              Tell us about your workflow, users, and existing tools. We will
+              discuss the requirements before recommending an approach.
             </p>
           </div>
 
           <div className="section-cta">
             <Button to="/contact">Discuss a Problem in This Area →</Button>
-            <Button to="/work" variant="ghost">
-              See Our Work
-            </Button>
           </div>
         </div>
       </section>

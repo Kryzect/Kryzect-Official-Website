@@ -1,3 +1,8 @@
+import { SERVICES } from './services-catalog.js'
+import { PRODUCTS } from './products.js'
+import { PROJECTS } from './projects.js'
+import { ARTICLES } from './articles.js'
+
 // Kryzect — central page registry (SINGLE source of truth for visibility).
 //
 // Every route in the app is listed here exactly once. This file alone controls:
@@ -23,7 +28,6 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: null,
     indexable: true,
-    note: 'Landing page. Always indexable.',
   },
   {
     slug: '/services',
@@ -33,7 +37,6 @@ export const SITE_PAGES = [
     footerVisible: 'Explore',
     indexable: true,
     child: { indexable: true }, // 12 detail pages — complete, credible
-    note: 'Complete catalogue: 12 services, rich uses. Launch-ready.',
   },
   {
     slug: '/products',
@@ -43,7 +46,6 @@ export const SITE_PAGES = [
     footerVisible: 'Explore',
     indexable: true,
     child: { indexable: true }, // IncidentIQ product page
-    note: 'IncidentIQ is real (in development) + honest future-products block.',
   },
   {
     slug: '/about',
@@ -52,7 +54,6 @@ export const SITE_PAGES = [
     headerVisible: true,
     footerVisible: 'Company',
     indexable: true,
-    note: 'Foundation story + values — complete.',
   },
   {
     slug: '/why-kryzect',
@@ -61,7 +62,6 @@ export const SITE_PAGES = [
     headerVisible: true,
     footerVisible: 'Company',
     indexable: true,
-    note: 'Positioning/philosophy — complete, distinct from About.',
   },
   {
     slug: '/process',
@@ -70,7 +70,6 @@ export const SITE_PAGES = [
     headerVisible: true,
     footerVisible: 'Company',
     indexable: true,
-    note: '8-stage workflow — complete.',
   },
   {
     slug: '/team',
@@ -79,7 +78,6 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: 'Company',
     indexable: true,
-    note: 'Single real founder (honest). Footer only; hidden from header.',
   },
   {
     slug: '/contact',
@@ -88,7 +86,6 @@ export const SITE_PAGES = [
     headerVisible: true,
     footerVisible: 'Explore',
     indexable: true,
-    note: 'Form (Web3Forms) + booking — live.',
   },
   {
     slug: '/book-a-call',
@@ -97,36 +94,32 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: 'Explore',
     indexable: true,
-    note: 'Google Calendar scheduler — live. Reached via CTAs.',
   },
   {
     slug: '/work',
     label: 'Work',
     kind: 'gallery',
-    headerVisible: false,
-    footerVisible: null,
-    indexable: false,
-    child: { indexable: false }, // case studies
-    note: 'EMPTY (PROJECTS = []). Hidden + noindex until genuine projects ship.',
+    headerVisible: PROJECTS.length > 0,
+    footerVisible: PROJECTS.length > 0 ? 'Explore' : null,
+    indexable: PROJECTS.length > 0,
+    child: { indexable: PROJECTS.length > 0 }, // case studies
   },
   {
     slug: '/blog',
     label: 'Blog',
     kind: 'gallery',
-    headerVisible: false,
-    footerVisible: null,
-    indexable: false,
-    child: { indexable: false }, // article pages
-    note: 'EMPTY (ARTICLES = []). Hidden + noindex until real articles ship.',
+    headerVisible: ARTICLES.length > 0,
+    footerVisible: ARTICLES.length > 0 ? 'Explore' : null,
+    indexable: ARTICLES.length > 0,
+    child: { indexable: ARTICLES.length > 0 }, // article pages
   },
   {
     slug: '/faq',
     label: 'FAQ',
     kind: 'content',
     headerVisible: false,
-    footerVisible: null,
+    footerVisible: 'Explore',
     indexable: true,
-    note: 'Verbatim blueprint Q&A — complete. Reachable via links.',
   },
   {
     slug: '/industries',
@@ -135,8 +128,7 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: null,
     indexable: true,
-    child: { indexable: false }, // detail pages are honest placeholders
-    note: 'Overview indexable; detail pages hidden/noindex until real experience.',
+    child: { indexable: false }, // Detail pages remain outside search until their content is developed.
   },
   {
     slug: '/careers',
@@ -145,7 +137,6 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: null,
     indexable: false,
-    note: 'Premature/thin (no real open roles). Hidden + noindex until hiring.',
   },
   {
     slug: '/privacy',
@@ -154,7 +145,6 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: 'Legal',
     indexable: true,
-    note: 'Legal — footer, indexable.',
   },
   {
     slug: '/terms',
@@ -163,7 +153,6 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: 'Legal',
     indexable: true,
-    note: 'Legal — footer, indexable.',
   },
   {
     slug: '/cookies',
@@ -172,7 +161,6 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: 'Legal',
     indexable: true,
-    note: 'Legal — footer, indexable.',
   },
   {
     slug: '/security',
@@ -181,7 +169,6 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: 'Legal',
     indexable: true,
-    note: 'Legal — footer, indexable.',
   },
   {
     slug: '/accessibility',
@@ -190,43 +177,44 @@ export const SITE_PAGES = [
     headerVisible: false,
     footerVisible: 'Legal',
     indexable: true,
-    note: 'Legal — footer, indexable.',
   },
 ]
 
 // Header navigation (discovery) — headerVisible entries in registry order.
-export const HEADER_NAV = SITE_PAGES.filter((p) => p.headerVisible).map((p) => ({
-  label: p.label,
-  to: p.slug,
-}))
+export const HEADER_NAV = SITE_PAGES.filter((p) => p.headerVisible).map(
+  (p) => ({
+    label: p.label,
+    to: p.slug,
+  }),
+)
 
 // Footer columns (completeness) — grouped by footerVisible column, in order.
-export const FOOTER_COLUMNS = SITE_PAGES.filter((p) => p.footerVisible).reduce((cols, p) => {
-  const existing = cols.find((c) => c.heading === p.footerVisible)
-  const item = { label: p.label, to: p.slug }
-  if (existing) existing.links.push(item)
-  else cols.push({ heading: p.footerVisible, links: [item] })
-  return cols
-}, [])
+export const FOOTER_COLUMNS = SITE_PAGES.filter((p) => p.footerVisible).reduce(
+  (cols, p) => {
+    const existing = cols.find((c) => c.heading === p.footerVisible)
+    const item = { label: p.label, to: p.slug }
+    if (existing) existing.links.push(item)
+    else cols.push({ heading: p.footerVisible, links: [item] })
+    return cols
+  },
+  [],
+)
 
-// Indexability lookups.
-function findBySlug(slug) {
-  return SITE_PAGES.find((p) => p.slug === slug)
-}
-
-// True when the given route should be indexable.
+// Exact known paths and content records define indexability; visibility is separate.
 export function isIndexable(pathname) {
-  // Match an exact section (e.g. "/work").
-  const exact = findBySlug(pathname)
+  const exact = SITE_PAGES.find((page) => page.slug === pathname)
   if (exact) return exact.indexable
-
-  // Match a detail page under a section (e.g. "/work/xyz").
-  for (const p of SITE_PAGES) {
-    if (p.slug !== '/' && pathname.startsWith(`${p.slug}/`)) {
-      return p.child ? p.child.indexable : p.indexable
-    }
+  const collections = {
+    services: SERVICES,
+    products: PRODUCTS,
+    work: PROJECTS,
+    blog: ARTICLES,
   }
-
-  // Unknown/other routes default to indexable (caught by NotFound manually).
-  return true
+  const match = /^\/(services|products|work|blog)\/([^/]+)$/.exec(pathname)
+  if (!match) return false
+  const parent = SITE_PAGES.find((page) => page.slug === `/${match[1]}`)
+  return Boolean(
+    parent?.child?.indexable &&
+    collections[match[1]].some((item) => item.slug === match[2]),
+  )
 }

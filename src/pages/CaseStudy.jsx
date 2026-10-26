@@ -5,9 +5,6 @@ import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import { PROJECTS, getProjectCategory } from '../data/projects.js'
 
-import './company.css'
-import './work.css'
-
 function SectionHeading({ kicker, title }) {
   return (
     <div className="page-section__heading">
@@ -73,6 +70,9 @@ function CaseStudy() {
               className="case-hero__image"
               src={project.image}
               alt={project.alt ?? `${project.name} hero`}
+              width={project.imageWidth}
+              height={project.imageHeight}
+              fetchPriority="high"
             />
           ) : null}
         </div>
@@ -108,7 +108,7 @@ function CaseStudy() {
               </div>
             ) : null}
           </dl>
-          <div className="case-links" style={{ marginTop: 'var(--space-8)' }}>
+          <div className="case-links">
             {project.liveUrl ? (
               <Button href={project.liveUrl} variant="ghost">
                 Live Project →
@@ -170,17 +170,46 @@ function CaseStudy() {
           <div className="story">
             <p className="story__para">{project.solution}</p>
           </div>
+          {project.screenshots?.length > 0 && (
+            <div className="screenshot-grid">
+              {project.screenshots.map((image) => (
+                <img
+                  key={image.src}
+                  src={image.src}
+                  srcSet={image.srcSet}
+                  sizes={image.sizes}
+                  alt={image.alt}
+                  width={image.width}
+                  height={image.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
       {/* ============ TECHNICAL DETAILS (expandable) ============ */}
       <section className="page-section">
         <div className="page-container">
-          <SectionHeading kicker="How it was built" title="Technical details." />
+          <SectionHeading
+            kicker="How it was built"
+            title="Technical details."
+          />
           <details className="case-tech">
-            <summary className="case-tech__summary">Show technical details</summary>
+            <summary className="case-tech__summary">
+              Show technical details
+            </summary>
             <div className="case-tech__body">
               <p className="story__para">{project.technicalDetails}</p>
+              {project.technologies?.length > 0 && (
+                <ul className="plain-list">
+                  {project.technologies.map((technology) => (
+                    <li key={technology}>{technology}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           </details>
         </div>
@@ -211,6 +240,11 @@ function CaseStudy() {
         <div className="page-container">
           <SectionHeading kicker="Links" title="Project links." />
           <div className="case-links">
+            {project.productUrl && (
+              <Button href={project.productUrl} variant="ghost">
+                Product overview →
+              </Button>
+            )}
             {project.liveUrl ? (
               <Button href={project.liveUrl} variant="ghost">
                 Live Project →
@@ -221,8 +255,10 @@ function CaseStudy() {
                 GitHub →
               </Button>
             ) : null}
-            {!project.liveUrl && !project.githubUrl ? (
-              <p className="home-page__empty">Private project — details are not published.</p>
+            {!project.liveUrl && !project.githubUrl && !project.productUrl ? (
+              <p className="home-page__empty">
+                Private project — details are not published.
+              </p>
             ) : null}
           </div>
         </div>

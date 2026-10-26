@@ -2,10 +2,6 @@ import Button from '../components/Button.jsx'
 import Seo from '../components/Seo.jsx'
 import Logo from '../components/Logo.jsx'
 
-import './company.css'
-import './notfound.css'
-
-// Custom 404 page. Subtle Kryzect branding, exact requested copy, and two
 // primary exits. Rendered by the catch-all route in App.jsx.
 function NotFound() {
   return (

@@ -1,24 +1,20 @@
+import { formatDate } from '../utils/articles.js'
 import { Link } from 'react-router-dom'
 
 // Blog card — used on the Blog overview and for related articles.
 // Renders cover image, category, title, excerpt, date, reading time, CTA.
-
-function formatDate(iso) {
-  const date = new Date(iso)
-  if (Number.isNaN(date.getTime())) return iso
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }).format(date)
-}
 
 function ArticleCard({ article }) {
   const href = `/blog/${article.slug}`
   return (
     <article className="blog-card">
       {article.coverImage ? (
-        <Link to={href} className="blog-card__media" tabIndex={-1} aria-hidden="true">
+        <Link
+          to={href}
+          className="blog-card__media"
+          tabIndex={-1}
+          aria-hidden="true"
+        >
           <img
             className="blog-card__image"
             src={article.coverImage.src}

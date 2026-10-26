@@ -1,0 +1,250 @@
+/* ---------- root: everything appears together ---------- */
+@keyframes logoFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.logo-root {
+  animation: logoFadeIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* ---------- outer ring: always spinning, decaying overlay eases into set speed, no rest ---------- */
+@keyframes spinBaseOuter {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinDecayOuter {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(300deg);
+  }
+}
+.track-outer-base {
+  transform-origin: 100px 100px;
+  animation: spinBaseOuter 40s linear infinite;
+  animation-play-state: running;
+}
+.track-outer-decay {
+  transform-origin: 100px 100px;
+  animation: spinDecayOuter 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-play-state: running;
+}
+
+/* ---------- center: ONE continuous pencil trace — line, then diamond, then upper arc, then lower arc ---------- */
+@keyframes traceLine {
+  0% {
+    stroke-dashoffset: 61;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes traceDiamond {
+  0% {
+    stroke-dashoffset: 46.3;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes traceArcUp {
+  0% {
+    stroke-dashoffset: 50.5;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes traceArcDown {
+  0% {
+    stroke-dashoffset: 50.5;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes glowLine {
+  0% {
+    stroke-dashoffset: 61;
+    opacity: 1;
+  }
+  78% {
+    stroke-dashoffset: -14;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -14;
+    opacity: 0;
+  }
+}
+@keyframes glowDiamond {
+  0% {
+    stroke-dashoffset: 46.3;
+    opacity: 1;
+  }
+  78% {
+    stroke-dashoffset: -11;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -11;
+    opacity: 0;
+  }
+}
+@keyframes glowArcUp {
+  0% {
+    stroke-dashoffset: 50.5;
+    opacity: 1;
+  }
+  78% {
+    stroke-dashoffset: -12;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -12;
+    opacity: 0;
+  }
+}
+@keyframes glowArcDown {
+  0% {
+    stroke-dashoffset: 50.5;
+    opacity: 1;
+  }
+  78% {
+    stroke-dashoffset: -12;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -12;
+    opacity: 0;
+  }
+}
+
+.trace-line {
+  stroke-dasharray: 60 62;
+  stroke-dashoffset: 61;
+  opacity: 0;
+  animation: traceLine 0.6s ease-in-out 0s forwards;
+}
+.trace-diamond {
+  stroke-dasharray: 45.3 47.3;
+  stroke-dashoffset: 46.3;
+  opacity: 0;
+  animation: traceDiamond 0.55s ease-in-out 0.6s forwards;
+}
+.trace-arc-up {
+  stroke-dasharray: 49.5 51.5;
+  stroke-dashoffset: 50.5;
+  opacity: 0;
+  animation: traceArcUp 0.55s ease-in-out 1.15s forwards;
+}
+.trace-arc-down {
+  stroke-dasharray: 49.5 51.5;
+  stroke-dashoffset: 50.5;
+  opacity: 0;
+  animation: traceArcDown 0.55s ease-in-out 1.7s forwards;
+}
+
+.glow-line {
+  stroke-dasharray: 14 62;
+  stroke-dashoffset: 61;
+  animation: glowLine 0.6s ease-in-out 0s forwards;
+  filter: brightness(3);
+  opacity: 0;
+}
+.glow-diamond {
+  stroke-dasharray: 11 47.3;
+  stroke-dashoffset: 46.3;
+  animation: glowDiamond 0.55s ease-in-out 0.6s forwards;
+  filter: brightness(3);
+  opacity: 0;
+}
+.glow-arc-up {
+  stroke-dasharray: 12 51.5;
+  stroke-dashoffset: 50.5;
+  animation: glowArcUp 0.55s ease-in-out 1.15s forwards;
+  filter: brightness(3);
+  opacity: 0;
+}
+.glow-arc-down {
+  stroke-dasharray: 12 51.5;
+  stroke-dashoffset: 50.5;
+  animation: glowArcDown 0.55s ease-in-out 1.7s forwards;
+  filter: brightness(3);
+  opacity: 0;
+}
+
+.center-group * {
+  animation-play-state: running;
+}
+
+.logo-root {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.center-group {
+  filter: drop-shadow(0 0.5px 1.4px #0a1120cc);
+}
+.logo-root--static,
+.logo-root--static * {
+  animation: none !important;
+}
+.logo-root--static {
+  opacity: 1;
+}
+.logo-root--static [class^='trace-'] {
+  opacity: 1;
+  stroke-dashoffset: 0;
+}
+.logo-root--static [class^='glow-'] {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-root,
+  .logo-root * {
+    animation: none !important;
+  }
+  .logo-root {
+    opacity: 1;
+  }
+  .logo-root [class^='trace-'] {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  .logo-root [class^='glow-'] {
+    opacity: 0;
+  }
+}

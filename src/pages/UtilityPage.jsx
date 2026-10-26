@@ -6,9 +6,6 @@ import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import { getUtilityPage } from '../data/utility-pages.js'
 import { CONTACT_EMAIL } from '../config.js'
 
-import './company.css'
-import './utility.css'
-
 // Reusable renderer for the short legal/utility pages (Terms, Privacy,
 // Cookies, Security, Accessibility). Content lives in data/utility-pages.js —
 // this component only turns that data into markup. The contact email always
@@ -63,9 +60,7 @@ function UtilityPage({ slug }) {
           <span className="page-hero__kicker">{page.kicker}</span>
           <h1 className="page-hero__title">{page.label}</h1>
           <p className="page-hero__text">{page.heroText}</p>
-          <p className="utility__updated">
-            Last updated: {page.lastUpdated}
-          </p>
+          <p className="utility__updated">Last updated: {page.lastUpdated}</p>
         </div>
       </section>
 
@@ -91,7 +86,9 @@ function UtilityPage({ slug }) {
               )}
               {section.contact && (
                 <div className="utility-section__cta">
-                  <Button href={`mailto:${CONTACT_EMAIL}`}>Contact Kryzect</Button>
+                  <Button href={`mailto:${CONTACT_EMAIL}`}>
+                    Contact Kryzect
+                  </Button>
                 </div>
               )}
             </div>

@@ -32,7 +32,12 @@ function Button({
   }
 
   return (
-    <button type={type ?? 'button'} onClick={onClick} className={classes} {...rest}>
+    <button
+      type={type ?? 'button'}
+      onClick={onClick}
+      className={classes}
+      {...rest}
+    >
       {children}
     </button>
   )
