@@ -2,9 +2,11 @@ import { build } from 'vite'
 import { rm, realpath } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { validateContent } from './validate-content.mjs'
+import { checkAssistantBuild } from './check-assistant-build.mjs'
 
 validateContent()
 await build()
+await checkAssistantBuild()
 try {
   await build({
     build: {
