@@ -14,7 +14,7 @@ function prefersReducedMotion() {
 // formation on every load, then fades to reveal the site. Skipped entirely
 // under reduced motion.
 function Loading() {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
   const [leaving, setLeaving] = useState(false)
   const [done, setDone] = useState(false)
 
@@ -25,7 +25,6 @@ function Loading() {
     }
 
     let ignore = false
-    setVisible(true)
     const showT = window.setTimeout(() => {
       if (!ignore) setLeaving(true)
     }, INTRO_MS - FADE_MS)
