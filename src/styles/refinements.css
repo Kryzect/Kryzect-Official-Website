@@ -35,8 +35,18 @@
   text-align: center;
 }
 .brand-intro__logo {
-  width: 10rem;
-  height: 10rem;
+  width: clamp(12rem, 28vmin, 18rem);
+  height: auto;
+  aspect-ratio: 1;
+}
+@media (max-height: 32rem) {
+  .brand-intro__content {
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+  .brand-intro__logo {
+    width: clamp(6rem, 30dvh, 9rem);
+  }
 }
 .brand-intro__title {
   font-family: var(--font-display);
