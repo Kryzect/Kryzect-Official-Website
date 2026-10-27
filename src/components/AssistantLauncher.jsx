@@ -53,6 +53,9 @@ export default function AssistantLauncher() {
     document.body.style.overflow = 'hidden'
     const viewport = window.visualViewport
     const resize = () => {
+      element.dataset.compactViewport = String(
+        (viewport?.height || window.innerHeight) < 480,
+      )
       element.style.setProperty(
         '--assistant-viewport-height',
         `${viewport?.height || window.innerHeight}px`,
@@ -84,6 +87,9 @@ export default function AssistantLauncher() {
 
   useEffect(() => {
     if (open && Panel) {
+      // Touch users choose when to summon the keyboard; opening chat should
+      // first expose the conversation and suggestions, not a keyboard overlay.
+      if (window.matchMedia('(pointer: coarse)').matches) return
       dialog.current?.querySelector('textarea')?.focus({ preventScroll: true })
       dialog.current
         ?.querySelector('.assistant-compose')

@@ -96,6 +96,16 @@ try {
       `Composer clipped at ${width}x${height}`,
     )
     assert.ok(shape.scrollWidth <= width)
+    if (width <= 480 && height >= 568) {
+      assert.ok(
+        shape.y >= height * 0.15,
+        'Phone chat should leave a meaningful part of the page visible',
+      )
+      assert.ok(
+        shape.bottom - shape.y <= Math.min(608, height * 0.81),
+        'Phone chat should use a bounded floating window',
+      )
+    }
     if (width >= 768 && height >= 768) {
       const compact = await page.evaluate(() => {
         const footer = document
@@ -357,9 +367,10 @@ try {
   )
   await page.unroute('**/api/assistant')
 
-  const sourcePage = await browser.newPage({
+  const sourceContext = await browser.newContext({
     viewport: { width: 1440, height: 900 },
   })
+  const sourcePage = await sourceContext.newPage()
   let sourcePosts = 0
   await sourcePage.route('**/api/assistant**', async (route) => {
     if (route.request().method() === 'POST') sourcePosts++
@@ -389,7 +400,111 @@ try {
     'Source-only mode must answer without sending chat messages to the server',
   )
   assert.equal(await sourcePage.locator('.assistant-pending').count(), 0)
-  await sourcePage.close()
+  const sourceComposer = sourcePage.locator('#assistant-message')
+  for (const [question, expected] of [
+    ['Who is the founder?', 'Muhammad Ali Aamir'],
+    ['What did he study?', 'BS Data Science'],
+    ['My team copies orders between spreadsheets every evening', 'Automation'],
+    ['What features can it include?', 'actual deliverables'],
+    ['What is IncidentIQ?', 'in development'],
+    ['What is it built with?', 'does not confirm its implementation'],
+    ['Can you help us?', 'could not confidently match'],
+  ]) {
+    await sourceComposer.fill(question)
+    await sourcePage
+      .getByRole('button', { name: 'Send message', exact: true })
+      .click()
+    await sourcePage
+      .locator('.assistant-message--assistant')
+      .last()
+      .filter({ hasText: expected })
+      .waitFor()
+  }
+  const clarifyButtons = sourcePage
+    .locator('.assistant-message--assistant')
+    .last()
+    .getByRole('button')
+  assert.equal(await clarifyButtons.count(), 3)
+  await clarifyButtons.filter({ hasText: 'Who is the founder?' }).click()
+  await sourcePage
+    .locator('.assistant-message--assistant')
+    .last()
+    .filter({ hasText: 'Muhammad Ali Aamir' })
+    .waitFor()
+  assert.equal(
+    sourcePosts,
+    0,
+    'Clarification and contextual source conversations remain fully local',
+  )
+  const sourceAxe = await new AxeBuilder({ page: sourcePage })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+    .analyze()
+  assert.equal(sourceAxe.violations.length, 0)
+  await sourceContext.close()
+
+  const touchContext = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    isMobile: true,
+    hasTouch: true,
+  })
+  const touchPage = await touchContext.newPage()
+  await touchPage.route('**/api/assistant**', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: '{"aiEnabled":false}',
+    }),
+  )
+  await touchPage.goto(base + '/services')
+  await touchPage
+    .getByRole('button', { name: 'Open Kryzect Assistant' })
+    .click()
+  await touchPage.locator('#assistant-message').waitFor()
+  assert.ok(
+    await touchPage.evaluate(() => matchMedia('(pointer: coarse)').matches),
+  )
+  assert.ok(
+    await touchPage
+      .locator('#assistant-message')
+      .evaluate((element) => document.activeElement !== element),
+    'Touch opening should not automatically summon the keyboard',
+  )
+  await touchPage.screenshot({ path: '.qa/assistant-phone-floating.png' })
+  await touchPage.locator('#assistant-message').focus()
+  await touchPage.evaluate(() => {
+    Object.defineProperty(window.visualViewport, 'height', {
+      configurable: true,
+      value: 320,
+    })
+    window.visualViewport.dispatchEvent(new Event('resize'))
+  })
+  await touchPage.waitForFunction(() => {
+    const panel = document.querySelector('#kryzect-assistant'),
+      rect = panel.getBoundingClientRect(),
+      input = panel.querySelector('textarea').getBoundingClientRect()
+    return (
+      panel.dataset.compactViewport === 'true' &&
+      rect.y >= 0 &&
+      rect.bottom <= 320 &&
+      input.bottom <= rect.bottom + 1
+    )
+  })
+  assert.ok(
+    await touchPage
+      .getByRole('button', { name: 'Close assistant' })
+      .isVisible(),
+  )
+  await touchPage.evaluate(() => {
+    delete window.visualViewport.height
+    window.visualViewport.dispatchEvent(new Event('resize'))
+  })
+  await touchPage.waitForFunction(
+    () =>
+      document.querySelector('#kryzect-assistant').getBoundingClientRect()
+        .height <= 608,
+  )
+  await touchPage.getByRole('button', { name: 'Close assistant' }).click()
+  await touchContext.close()
 
   const noJS = await browser.newPage({ javaScriptEnabled: false })
   await noJS.goto(base + '/services')

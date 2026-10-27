@@ -329,6 +329,23 @@ export default function AssistantPanel({ open }) {
                   ))}
                 </div>
               )}
+              {message.suggestions?.length > 0 && (
+                <div
+                  className="assistant-suggestions"
+                  aria-label="Clarify your question"
+                >
+                  {message.suggestions.map((question) => (
+                    <button
+                      type="button"
+                      key={question}
+                      disabled={busy || limited}
+                      onClick={() => void send(question)}
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              )}
             </article>
           ),
         )}
@@ -396,29 +413,32 @@ export default function AssistantPanel({ open }) {
             <button
               type="button"
               className="assistant-clear"
+              aria-label="Clear chat"
               onClick={clear}
               disabled={!messages.length && !draft && !failure}
             >
-              Clear chat
+              Clear
             </button>
             {busy ? (
               <button
                 type="button"
                 className="assistant-send"
+                aria-label="Stop reply"
                 onClick={() => {
                   abortReason.current = 'stopped'
                   controller.current?.abort()
                 }}
               >
-                Stop reply
+                Stop
               </button>
             ) : (
               <button
                 type="submit"
                 className="assistant-send"
+                aria-label="Send message"
                 disabled={!draft.trim() || limited}
               >
-                Send message
+                Send
               </button>
             )}
           </div>

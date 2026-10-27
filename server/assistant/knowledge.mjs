@@ -3,6 +3,7 @@ import { ENGAGEMENTS } from '../../src/data/engagements.js'
 import { TEAM_MEMBERS } from '../../src/data/team.js'
 import { PRODUCTS } from '../../src/data/products.js'
 import { CONTACT_EMAIL, BOOKING_URL } from '../../src/config.js'
+import { FAQS } from '../../src/data/faq.js'
 
 const reviewed = '2026-10-26'
 const founder = TEAM_MEMBERS[0]
@@ -55,8 +56,30 @@ export const KNOWLEDGE = [
       details: service.fullDescription,
       capabilities: service.capabilities,
       useCases: service.useCases,
+      faqs: service.faqs || [],
+      considerations: service.note?.body,
     },
   })),
+  {
+    id: 'company-faq',
+    category: 'company',
+    label: 'Kryzect FAQ',
+    url: '/faq',
+    reviewed: '2026-10-27',
+    facts: { questions: FAQS },
+  },
+  {
+    id: 'careers',
+    category: 'company',
+    label: 'Careers',
+    url: '/careers',
+    reviewed: '2026-10-27',
+    facts: {
+      status:
+        'The published careers page states there are no open roles or internships at present. Future openings and application instructions will be published when hiring begins. Do not accept an application, invent an opening, or guarantee a job.',
+      team: 'The public team page lists Muhammad Ali Aamir as Founder & Lead Engineer. This is the published roster, not a confirmed total headcount or staffing guarantee.',
+    },
+  },
   {
     id: 'engagements',
     category: 'company',
@@ -158,14 +181,12 @@ export const ACTIONS = Object.freeze({
 export const KNOWLEDGE_TEXT = JSON.stringify(KNOWLEDGE)
 
 // Keep the full reviewed record for validation/review. The model receives the
-// same IDs and a concise service index, without repeated page prose/metadata.
+// same IDs and all approved facts, without repeated source metadata.
 export const MODEL_KNOWLEDGE_TEXT = JSON.stringify(
   KNOWLEDGE.map(({ id, category, facts }) => ({
     id,
     category,
-    facts: id.startsWith('service-')
-      ? { description: facts.description, capabilities: facts.capabilities }
-      : facts,
+    facts,
   })),
 )
 if (KNOWLEDGE_TEXT.length > 44000)

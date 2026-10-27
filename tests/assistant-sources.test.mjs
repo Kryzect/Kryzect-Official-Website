@@ -1,6 +1,10 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { sourceAnswer } from '../src/utils/assistant-sources.js'
+import { SOURCE_EVALUATIONS } from './fixtures/source-evaluations.mjs'
+import { SOURCE_PARAPHRASES } from './fixtures/source-paraphrases.mjs'
+import { SERVICES } from '../src/data/services-catalog.js'
+import { SOURCE_KNOWLEDGE } from '../src/data/assistant-knowledge.js'
 
 test('saved source fallback attributes founder facts and keeps company stacks broad', () => {
   const founder = sourceAnswer('Who is the founder?')
@@ -75,5 +79,76 @@ test('reported conversation regressions answer the actual intent without unsuppo
   assert.match(
     sourceAnswer('Can you build a customer portal?').content,
     /portal/i,
+  )
+})
+
+test('source-only intent evaluation understands paraphrases, follow-ups, spelling and scope', () => {
+  for (const [question, expected, previous = []] of SOURCE_EVALUATIONS) {
+    const reply = sourceAnswer(
+      question,
+      previous.map((content) => ({ role: 'user', content })),
+    )
+    assert.equal(reply.intent, expected, question)
+  }
+})
+
+test('all service catalogs expose approved overview, scope, capabilities, examples, and FAQs', () => {
+  for (const service of SERVICES) {
+    for (const [question, expected] of [
+      [`Tell me about ${service.title}`, service.slug],
+      [`What is included in ${service.title}?`, `${service.slug}:scope`],
+      [
+        `What features can ${service.title} include?`,
+        `${service.slug}:capabilities`,
+      ],
+      [
+        `What use cases does ${service.title} support?`,
+        `${service.slug}:examples`,
+      ],
+      ...(service.faqs || []).map((faq, index) => [
+        faq.question,
+        `${service.slug}:faq-${index}`,
+      ]),
+    ])
+      assert.equal(sourceAnswer(question).intent, expected, question)
+    const scope = SOURCE_KNOWLEDGE.find(
+      (entry) => entry.id === `${service.slug}:scope`,
+    )
+    for (const paragraph of service.fullDescription)
+      assert.ok(scope.answer.includes(paragraph))
+    if (service.note?.body)
+      assert.ok(
+        SOURCE_KNOWLEDGE.find(
+          (entry) => entry.id === `${service.slug}:considerations`,
+        ).answer.includes(service.note.body),
+      )
+  }
+})
+
+test('indirect business paraphrases and unseen wording choose a relevant answer or safe scope boundary', () => {
+  for (const [question, expected, previous = []] of SOURCE_PARAPHRASES) {
+    const reply = sourceAnswer(
+      question,
+      previous.map((content) => ({ role: 'user', content })),
+    )
+    assert.ok(expected.includes(reply.intent), `${question}: ${reply.intent}`)
+  }
+})
+
+test('source-only multi-question answers stay grounded, bounded and clarify uncertain intent', () => {
+  const combined = sourceAnswer('What is Kryzect? Who is the founder?')
+  assert.equal(combined.intent, 'combined')
+  assert.match(combined.content, /Muhammad Ali Aamir/)
+  assert.ok(combined.content.length <= 2200 && combined.sources.length <= 2)
+  const unknown = sourceAnswer('Can you help us?')
+  assert.equal(unknown.disposition, 'clarify')
+  assert.ok(unknown.suggestions.length > 0 && !unknown.matched)
+  assert.equal(sourceAnswer('What is Django?').intent, 'technology-explanation')
+  assert.equal(sourceAnswer('Can you work in Elixir?').intent, 'technology')
+  assert.equal(
+    sourceAnswer('How old is he?', [
+      { role: 'user', content: 'Who is the founder?' },
+    ]).disposition,
+    'unknown',
   )
 })

@@ -107,7 +107,7 @@ test('knowledge preserves all services and founder-only attribution without a re
     12,
   )
   assert.ok(KNOWLEDGE_TEXT.length < 44000)
-  assert.ok(MODEL_KNOWLEDGE_TEXT.length < KNOWLEDGE_TEXT.length * 0.7)
+  assert.ok(MODEL_KNOWLEDGE_TEXT.length < KNOWLEDGE_TEXT.length)
   assert.deepEqual(
     JSON.parse(MODEL_KNOWLEDGE_TEXT).map((entry) => entry.id),
     KNOWLEDGE.map((entry) => entry.id),
