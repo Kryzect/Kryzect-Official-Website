@@ -35,7 +35,7 @@
   text-align: center;
 }
 .brand-intro__logo {
-  width: clamp(12rem, 28vmin, 18rem);
+  width: min(clamp(14rem, 42vmin, 25rem), calc(100vw - 3rem));
   height: auto;
   aspect-ratio: 1;
 }
