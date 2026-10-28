@@ -55,12 +55,13 @@ test('unknown paths and unfinished sections cannot be indexed', () => {
     '/unknown',
     '/services/unknown',
     '/products/missing',
-    '/blog',
     '/work',
     '/industries/healthcare',
   ])
     assert.equal(isIndexable(route), false)
   assert.equal(isIndexable('/services/ai-solutions'), true)
+  assert.equal(isIndexable('/blog'), true)
+  assert.equal(isIndexable('/blog/ai-cybersecurity-php2shell'), true)
   assert.equal(new Set(PUBLIC_ROUTES).size, PUBLIC_ROUTES.length)
   assert.ok(INDEXABLE_ROUTES.every((route) => PUBLIC_ROUTES.includes(route)))
 })

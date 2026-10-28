@@ -6,48 +6,30 @@ import Button from '../components/Button.jsx'
 import Seo from '../components/Seo.jsx'
 import Breadcrumbs from '../components/Breadcrumbs.jsx'
 import ArticleCard from '../components/ArticleCard.jsx'
+import ArticleContent from '../components/ArticleContent.jsx'
+import { Link } from 'react-router-dom'
 import { getArticle, getRelatedArticles } from '../data/articles.js'
 import { SITE_URL } from '../data/site.js'
 
 // Renders one content block into semantic markup (see data/articles.js).
-function ContentBlock({ block }) {
-  switch (block.type) {
-    case 'h2':
-      return <h2 className="article-body__h2">{block.text}</h2>
-    case 'h3':
-      return <h3 className="article-body__h3">{block.text}</h3>
-    case 'list':
-      return (
-        <ul className="article-body__list">
-          {block.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      )
-    case 'quote':
-      return (
-        <blockquote className="article-body__quote">{block.text}</blockquote>
-      )
-    case 'p':
-    default:
-      return <p className="article-body__p">{block.text}</p>
-  }
-}
-
 function ArticleSchema({ article }) {
   return (
     <JsonLd
       data={{
         '@context': 'https://schema.org',
-        '@type': 'Article',
+        '@type': 'BlogPosting',
         headline: article.title,
         description: article.excerpt,
         image: article.coverImage
           ? new URL(article.coverImage.src, SITE_URL).href
           : undefined,
         datePublished: article.date,
-        dateModified: article.updated ?? article.date,
-        author: { '@type': 'Person', name: article.author },
+        dateModified: article.updated,
+        author: {
+          '@type': article.authorType || 'Person',
+          name: article.author,
+          url: article.authorUrl,
+        },
         publisher: { '@type': 'Organization', name: 'Kryzect', url: SITE_URL },
         mainEntityOfPage: `${SITE_URL}/blog/${article.slug}`,
         wordCount: articleWordCount(article.content),
@@ -88,22 +70,33 @@ function ArticlePage() {
     <>
       <Seo
         title={article.title}
+        seoTitle={article.seoTitle}
         description={article.excerpt}
         path={`/blog/${article.slug}`}
         type="article"
-        image={article.coverImage ? article.coverImage.src : undefined}
+        image={article.socialImage || article.coverImage?.src}
+        imageAlt={article.coverImage?.alt}
+        imageWidth={article.coverImage?.width}
+        imageHeight={article.coverImage?.height}
+        publishedTime={article.date}
+        modifiedTime={article.updated}
       />
       <Breadcrumbs
         items={[
           { label: 'Home', to: '/' },
           { label: 'Blog', to: '/blog' },
-          { label: article.title, to: `/blog/${article.slug}` },
+          {
+            label: article.breadcrumbLabel || article.title,
+            to: `/blog/${article.slug}`,
+          },
         ]}
       />
       <ArticleSchema article={article} />
 
       {/* ============ ARTICLE ============ */}
-      <article className="article">
+      <article
+        className={`article${article.editorial ? ' article--editorial' : ''}`}
+      >
         <header className="article__header">
           <div className="page-container">
             <span className="article__category">{article.category}</span>
@@ -121,7 +114,7 @@ function ArticlePage() {
         </header>
 
         {article.coverImage ? (
-          <div className="article__media page-container">
+          <figure className="article__media page-container">
             <img
               className="article__image"
               src={article.coverImage.src}
@@ -129,16 +122,17 @@ function ArticlePage() {
               sizes={article.coverImage.sizes}
               alt={article.coverImage.alt ?? article.title}
               fetchPriority="high"
+              loading="eager"
               decoding="async"
               width={article.coverImage.width}
               height={article.coverImage.height}
             />
-          </div>
+          </figure>
         ) : null}
 
         <div className="article__body">
           {article.content.map((block, index) => (
-            <ContentBlock block={block} key={`${block.type}-${index}`} />
+            <ArticleContent block={block} key={`${block.type}-${index}`} />
           ))}
         </div>
       </article>
@@ -163,18 +157,24 @@ function ArticlePage() {
       ) : null}
 
       {/* ============ CTA ============ */}
-      <section className="page-section page-section--final">
-        <div className="page-container">
-          <div className="article-cta">
-            <h2 className="article-cta__title">
-              Need help applying this to your business?
-            </h2>
-            <div className="section-cta">
-              <Button to="/contact">Talk to Kryzect →</Button>
+      {article.showCta === false ? (
+        <div className="article__return">
+          <Link to="/blog">← Back to the blog</Link>
+        </div>
+      ) : (
+        <section className="page-section page-section--final">
+          <div className="page-container">
+            <div className="article-cta">
+              <h2 className="article-cta__title">
+                Need help applying this to your business?
+              </h2>
+              <div className="section-cta">
+                <Button to="/contact">Talk to Kryzect →</Button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   )
 }

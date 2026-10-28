@@ -1,0 +1,143 @@
+/* Editorial article enhancements. The global brand and other page layouts stay
+   in their existing stylesheets. */
+.article--editorial .article__header {
+  padding-top: var(--space-10);
+  border-bottom: 0;
+}
+.article--editorial .article__header > .page-container {
+  max-width: 72rem;
+}
+.article--editorial .article__title {
+  max-width: 29ch;
+  font-size: clamp(2rem, 4.2vw, 3.75rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.article--editorial .article__subtitle {
+  max-width: 65ch;
+  font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+  line-height: 1.65;
+}
+.article--editorial .article__media {
+  max-width: 76rem;
+  padding-top: var(--space-4);
+}
+.article--editorial .article__image {
+  display: block;
+  aspect-ratio: 16 / 9;
+  max-height: none;
+  border-radius: var(--radius-md);
+}
+.article--editorial .article__body {
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: var(--space-8);
+}
+.article--editorial .article-body__p {
+  line-height: 1.85;
+}
+.article--editorial .article-body__h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.25;
+  margin-top: var(--space-16);
+  scroll-margin-top: calc(var(--header-height) + var(--space-6));
+}
+.article__body a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+.article__body a:hover {
+  color: var(--color-text);
+}
+.article__body code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--color-surface);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-xs);
+  overflow-wrap: anywhere;
+}
+.article-body__divider {
+  border: 0;
+  border-top: 1px solid var(--color-text-secondary);
+  margin-block: var(--space-12);
+  opacity: 0.4;
+}
+.article--editorial .article-body__p--note {
+  font-size: var(--text-base);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+.article-figure {
+  margin-block: var(--space-10);
+}
+.article-figure__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.article-figure__image--diagram {
+  display: none;
+}
+.article-figure__text {
+  list-style: none;
+  padding: 0 0 0 var(--space-5);
+  border-left: 1px solid var(--color-accent);
+}
+.article-figure__text li {
+  margin-bottom: var(--space-6);
+  line-height: 1.65;
+}
+.article-figure__text strong {
+  display: block;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+.article-figure__text span {
+  font-size: var(--text-base);
+}
+.article-figure figcaption {
+  max-width: 46rem;
+  margin: var(--space-4) auto 0;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+.article__return {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 var(--space-6) var(--space-16);
+}
+.article__return a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-accent);
+  text-underline-offset: 0.2em;
+}
+@media (min-width: 75rem) {
+  .article-figure {
+    width: min(78rem, calc(100vw - 3rem));
+    margin-left: calc(50% - min(39rem, calc(50vw - 1.5rem)));
+  }
+  .article-figure__image--diagram {
+    display: block;
+  }
+  .article-figure__text {
+    display: none;
+  }
+}
+@media (max-width: 30rem) {
+  .article--editorial .article__body,
+  .article__return {
+    padding-inline: var(--space-5);
+  }
+  .article--editorial .article-body__p {
+    font-size: var(--text-base);
+    line-height: 1.85;
+  }
+}

@@ -79,9 +79,15 @@ function Blog() {
       <section className="page-section">
         <div className="page-container">
           {filtered.length > 0 ? (
-            <div className="blog-grid">
+            <div
+              className={`blog-grid${ARTICLES.length === 1 ? ' blog-grid--single' : ''}`}
+            >
               {filtered.map((article) => (
-                <ArticleCard article={article} key={article.slug} />
+                <ArticleCard
+                  article={article}
+                  headingLevel={2}
+                  key={article.slug}
+                />
               ))}
             </div>
           ) : (

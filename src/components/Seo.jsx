@@ -8,10 +8,16 @@ import {
 
 export default function Seo({
   title,
+  seoTitle,
   description,
   path,
   type = 'website',
   image,
+  imageAlt,
+  imageWidth,
+  imageHeight,
+  publishedTime,
+  modifiedTime,
   noindex,
 }) {
   const { pathname } = useLocation()
@@ -22,7 +28,7 @@ export default function Seo({
   const hidden = noindex ?? !isIndexable(current)
   return (
     <>
-      <title>{fullTitle}</title>
+      <title>{seoTitle || fullTitle}</title>
       <meta name="description" content={description} />
       <meta
         name="robots"
@@ -37,8 +43,18 @@ export default function Seo({
       <meta property="og:image" content={ogImage} />
       <meta
         property="og:image:alt"
-        content={image ? title : 'Kryzect — Think First. Build Better.'}
+        content={
+          imageAlt || (image ? title : 'Kryzect — Think First. Build Better.')
+        }
       />
+      {imageWidth && <meta property="og:image:width" content={imageWidth} />}
+      {imageHeight && <meta property="og:image:height" content={imageHeight} />}
+      {publishedTime && (
+        <meta property="article:published_time" content={publishedTime} />
+      )}
+      {modifiedTime && (
+        <meta property="article:modified_time" content={modifiedTime} />
+      )}
       {!image && (
         <>
           <meta property="og:image:width" content="1200" />
@@ -49,6 +65,7 @@ export default function Seo({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+      {imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
     </>
   )
 }

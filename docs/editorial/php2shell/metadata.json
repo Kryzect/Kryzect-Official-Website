@@ -1,0 +1,28 @@
+{
+  "slug": "ai-cybersecurity-php2shell",
+  "canonicalPath": "/blog/ai-cybersecurity-php2shell",
+  "title": "AI Is Finding Security Flaws Faster Than Ever. Are We Ready for What Comes Next?",
+  "seoTitleSuggestion": "PHP2Shell, AI and the Gap Between Finding and Fixing Flaws | Kryzect",
+  "subtitle": "How PHP2Shell exposed the awkward distance between discovering a serious vulnerability and making the software behind it safe.",
+  "description": "PHP2Shell showed how AI-assisted vulnerability research can outrun the work of fixing and deploying software. A closer look at what happened and why it matters.",
+  "category": "Engineering",
+  "author": "Kryzect",
+  "authorSchemaType": "Organization",
+  "publicationDate": "SET_ON_ACTUAL_PUBLICATION",
+  "editorialResearchCutoff": "2026-10-27",
+  "updated": "ONLY_ON_SUBSTANTIVE_REAL_REVISIONS",
+  "estimatedReadingMinutes": 10,
+  "coverImage": {
+    "src": "/images/articles/php2shell-hero.webp",
+    "fallbackSrc": "/images/articles/php2shell-hero.jpg",
+    "width": 1600,
+    "height": 900,
+    "alt": "A focused beam of blue light revealing a narrow opening between layers of an intricate dark metal mechanism"
+  },
+  "visuals": [
+    {"asset": "assets/php2shell-timeline.svg", "caption": "A compressed disclosure window, after a long investigation. Sources: PHP Foundation, AWS and Wiz."},
+    {"asset": "assets/four-clocks.svg", "caption": "Kryzect's conceptual model of the discovery-to-remediation gap. The four stages are not measured incident durations."}
+  ],
+  "tags": ["AI security", "PHP2Shell", "software security", "vulnerability research", "security engineering"],
+  "url": "https://kryzect.vercel.app/blog/ai-cybersecurity-php2shell"
+}

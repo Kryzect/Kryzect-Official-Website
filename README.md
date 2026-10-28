@@ -49,7 +49,7 @@ The official website for Kryzect, a founder-led software engineering and AI comp
 
 > **Clarity before code.** Understand the work, define the scope, and build something useful.
 
-The website introduces our services, Express and Strategic engagements, founder, and product experiments. Work and Blog are implemented and remain hidden from navigation until genuine content is published.
+The website introduces our services, Express and Strategic engagements, founder, and product experiments. Blog visibility follows its approved article records; Work remains hidden until genuine project content is published.
 
 ## Tech stack
 

@@ -1648,6 +1648,27 @@
   max-width: 46rem;
 }
 
+.blog-grid.blog-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 72rem;
+}
+@media (min-width: 48rem) {
+  .blog-grid--single .blog-card {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .blog-grid--single .blog-card__media {
+    height: 100%;
+  }
+  .blog-grid--single .blog-card__image {
+    height: 100%;
+    object-fit: cover;
+  }
+  .blog-grid--single .blog-card__title {
+    font-size: clamp(1.375rem, 2.4vw, 2rem);
+  }
+}
+
 .blog-empty__title {
   font-family: var(--font-display);
   font-size: var(--text-2xl);

@@ -136,10 +136,7 @@ try {
   }
   await noJS.close()
   await page.goto(base + '/')
-  assert.equal(
-    await page.locator('a[href="/work"], a[href="/blog"]').count(),
-    0,
-  )
+  assert.equal(await page.locator('a[href="/work"]').count(), 0)
   const snapshot = () =>
     page.evaluate(() => {
       const selectors = [
